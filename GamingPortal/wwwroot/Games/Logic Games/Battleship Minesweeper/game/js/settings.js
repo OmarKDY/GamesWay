@@ -1,0 +1,43 @@
+var CANVAS_WIDTH = 870;
+var CANVAS_HEIGHT = 1504;
+
+var EDGEBOARD_X = 50;
+var EDGEBOARD_Y = 240;
+
+var FONT_GAME = "arialbold";
+
+var FPS = 30;
+var FPS_TIME      = FPS/24;
+var DISABLE_SOUND_MOBILE = false;
+
+var STATE_LOADING = 0;
+var STATE_MENU    = 1;
+var STATE_HELP    = 1;
+var STATE_GAME    = 3;
+
+var ON_MOUSE_DOWN = 0;
+var ON_MOUSE_UP   = 1;
+var ON_MOUSE_OVER = 2;
+var ON_MOUSE_OUT  = 3;
+var ON_DRAG_START = 4;
+var ON_DRAG_END   = 5;
+
+var BOARD_COLS; 
+var BOARD_ROWS; 
+var CELL_WIDTH = 60;
+var CELL_HEIGHT = 60;
+var GRID_SCALE;
+var NUM_MINES;
+var SCORE_FOR_ELEM = 50;
+var TIME_LEVEL;
+
+var BOARD_OFFSET_X = 40;
+var BOARD_OFFSET_Y = 360;
+
+var DIFF_EASY;
+var DIFF_MEDIUM;
+var DIFF_HARD;
+
+var ENABLE_FULLSCREEN;
+var ENABLE_CHECK_ORIENTATION;
+var SOUNDTRACK_VOLUME_IN_GAME  = 1;

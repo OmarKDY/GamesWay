@@ -1,0 +1,443 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<head lang="en">
+	<meta http-equiv="content-type" content="text/html;charset=utf-8">
+	<title>The Sorcerer</title>
+	<!-- Framework CSS -->
+	<link rel="stylesheet" href="assets/blueprint-css/screen.css" type="text/css" media="screen, projection">
+	<link rel="stylesheet" href="assets/blueprint-css/print.css" type="text/css" media="print">
+	<link href="styles/shCore.css" rel="stylesheet" type="text/css" >
+	<link href="styles/shCoreDefault.css" rel="stylesheet" type="text/css" >
+	<link href="styles/shThemeDefault.css" rel="stylesheet" type="text/css" >
+	
+	<!--[if lt IE 8]><link rel="stylesheet" href="assets/blueprint-css/ie.css" type="text/css" media="screen, projection"><![endif]-->
+	<link rel="stylesheet" href="assets/blueprint-css/plugins/fancy-type/screen.css" type="text/css" media="screen, projection">
+	<style type="text/css" media="screen">
+		p, table, hr, .box { margin-bottom:25px; }
+		.box p { margin-bottom:10px; }
+	</style>
+	
+	<script type="text/javascript" src="scripts/shCore.js"></script>
+	<script type="text/javascript" src="scripts/shBrushJScript.js"></script>
+	<script type="text/javascript" src="scripts/shBrushXml.js"></script>
+</head>
+
+
+<body>
+	<div class="container">
+	
+		<h3 class="center alt">&ldquo;The Sorcerer&rdquo; Documentation by &ldquo;Code This Lab S.r.l.&rdquo; ver 1.0</h3>
+		
+		<hr>
+		
+		<h1 class="center">&ldquo;The Sorcerer&rdquo;</h1>
+		
+		<div class="borderTop">
+			<div class="span-6 colborder info prepend-1">
+				<p class="prepend-top">
+					<strong>
+					Created: 23/06/2014<br>
+					By: <a href="http://www.codethislab.com" target="_blank">Code This Lab S.r.l.</a><br>
+					Email: <a href="mailto:info@codethislab.com">info@codethislab.com</a>
+					</strong>
+				</p>
+			</div><!-- end div .span-6 -->		
+	
+			<div class="span-12 last">
+				<p class="prepend-top append-0">Thank you for purchasing our game. If you have any questions that are beyond the scope of this help file, please feel free to email via user page contact form <a href="http://codecanyon.net/user/codethislab?ref=codethislab">here</a>. Thanks so much!</p>
+			</div>
+		</div><!-- end div .borderTop -->
+		
+		<hr>
+		
+		<h2 id="toc" class="alt">Table of Contents</h2>
+		<ol class="alpha">
+			<li><a href="#desc">Description</a></li>
+			<li><a href="#content">Folder Content</a></li>
+			<li><a href="#start">Getting Started</a></li>
+			<li><a href="#htmlStructure">HTML Structure</a></li>
+			<li><a href="#cssFiles">CSS Files and Structure</a></li>
+			<li><a href="#javascript">JavaScript</a></li>
+			<li><a href="#game_function">Game functions</a></li>
+			<li><a href="#spritesheet">Change Sprites</a></li>
+			<li><a href="#new_level">New Levels</a></li>
+			<li><a href="#disable_sound">Disable Sounds</a></li>
+			<li><a href="#wp">Wordpress Plugin</a></li>
+		</ol>
+		
+		<hr>
+		
+		<h3 id="desc"><strong>A) Description</strong> - <a href="#toc">top</a></h3>
+		<p>The Sorcerer is a HTML5 clone of the famous Zuma puzzle game. The game contains 3 different progressive levels.<br>
+			Please contact us at <a href="http://www.codethislab.com" target="_blank">http://codecanyon.net/user/codethislab</a> if you want more levels <br>
+			The ZIP package contains the game with 960x540 resolution that scales to fit current screen device (FULL SCREEN). <br>
+			The game is fully compatible with all most common mobile devices.<br>
+			Sounds are enabled for mobile but we can't grant full audio compatibility on all mobile devices due to some well-know issue between some mobile-browser and HTML5.
+			So if you want to avoid sound loading, please read <a href="#disable_sound">Disable Sound</a> section). <br>
+			<strong>WARNING:</strong> Sounds can't be enabled for Windows Phone as this kind of device have unsolved issues with 'audio' and 'video' tag.
+		</p>
+		<hr>
+		
+		<h3 id="content"><strong>B) Folder Content</strong> - <a href="#toc">top</a></h3>
+		<ol>
+			<li><strong>ctl_arcade_wp_plugin:</strong></li>
+			This folder contains the zip package that can be used with our Wordpress plugin "CTL Arcade" (http://codecanyon.net/item/ctl-arcade-wordpress-plugin/13856421).
+			<li><strong>game</strong></li>
+			This folder contains the full game source code ready to be edited.
+			<li><strong>live_demo</strong></li>
+			This folder contains the obfuscated code. You should upload this folder on your server if you don't need to make any changes.
+			<li><strong>readme</strong></li>
+			This folder contains the package instructions.
+			<li><strong>thumbs</strong></li>
+			This folder contains all game icons.
+		</ol>
+		<hr>
+		
+		<h3 id="start"><strong>C) Getting Started</strong> - <a href="#toc">top</a></h3>
+			<p>To install the game just upload on your server the game folder live_demo.
+			
+			<ul>
+				 <li><strong>Game Embedding: </strong>The proper way to embed the game is in a full-screen web page or in an iframe.<br>
+                                        In the first case the game will fit the screen size, in the second, that of the iframe.<br>
+                                        If the iframe size matches that of the screen, the game will fit accordingly.<br> 
+                                        The alignment will be proportioned to the aspect ratio of the game.<br>
+                                        To install the game in a WordPress website, we suggest to use our plugin <a href="http://codecanyon.net/item/ctl-arcade-wordpress-plugin/13856421?ref=codethislab"> CTL Arcade </a>. <br><br>
+				
+				<li><strong>Save Score:</strong> if you need to call your php function for saving score, you can add it in the <strong>index.html</strong> file:
+					<pre class="brush: js">
+						$(document).ready(function(){
+							var oMain = new CMain();
+							
+							$(oMain).on("save_score", function(evt,iScore) {
+								//alert("iScore: "+iScore);
+							});
+						});
+					</pre>
+				</li>
+				<li> <strong>Localization:</strong> You can easily change game text for different languages, changing string in <strong>CLang.js</strong></li>
+				
+				<pre class="brush: js">
+					TEXT_GAMEOVER    = "GAME OVER";
+					TEXT_CONGRATS    = "CONGRATULATIONS";
+					TEXT_PLAY        = "PLAY";
+					TEXT_SCORE       = "SCORE";
+					TEXT_LEVEL       = "LEVEL";
+					TEXT_FINAL_SCORE = "FINAL SCORE";
+					TEXT_SELECT_LEVEL = "SELECT A LEVEL";
+					TEXT_DELETE_SAVINGS = "ALL YOUR PROGRESS WILL BE CANCELLED! ARE YOU SURE?";
+					TEXT_NO = "NO";
+					TEXT_YES = "YES";
+					var TEXT_ERR_LS = "YOUR WEB BROWSER DOES NOT SUPPORT STORING SETTING LOCALLY. IN SAFARI, THE MOST COMMON CAUSE OF THIS IS USING 'PRIVATE BROWSING MODE'. SOME INFO MAY NOT SAVE OR SOME FEATURE MAY NOT WORK PROPERLY.";
+					TEXT_CREDITS_DEVELOPED = "DEVELOPED BY";
+					
+					TEXT_SHARE_IMAGE = "200x200.jpg";
+					TEXT_SHARE_TITLE = "Congratulations!";
+					TEXT_SHARE_MSG1 = "You collected <strong>";
+					TEXT_SHARE_MSG2 = " points</strong>!<br><br>Share your score with your friends!";
+					TEXT_SHARE_SHARE1 = "My score is ";
+					TEXT_SHARE_SHARE2 = " points! Can you do better";
+					</pre>
+				
+				<li><strong>Game option:</strong> You can easily customize game setting when creating a new instance of the game in <strong>index.html</strong> file</li>
+				<pre class="brush: js">
+					var oMain = new CMain({
+												fullscreen:true, //SET THIS TO FALSE IF YOU DON'T WANT TO SHOW FULLSCREEN BUTTON
+                                                check_orientation:true,     //SET TO FALSE IF YOU DON'T WANT TO SHOW ORIENTATION ALERT ON MOBILE DEVICES
+                                                combo_value: 50,  //amount added to the score for each ball exploded in a combo
+                                                extra_score: 100,  //amount added to the score when level is completely cleared
+											});
+				</pre>
+			</ul>
+			</p>
+		<hr>
+		
+		<h3 id="htmlStructure"><strong>D) HTML Structure</strong> - <a href="#toc">top</a></h3>
+		<p>This game have the canvas tag in the body. The ready event into the body calls the main function of the game: CMain(). 
+		<br>The head section declares all the javascript functions of the game. The whole project uses a typical object-oriented approach.<br> 
+		In the init function there are 7 mapped <a href="#events">events</a> that can be useful eventually for stats</p>
+		
+		<pre class="brush: js">
+			<body  ondragstart="return false;" ondrop="return false;" >
+				  <script>
+				   $(document).ready(function(){
+							 var oMain = new CMain();
+							
+							 $(oMain).on("start_session", function(evt) {
+									//THIS EVENT IS TRIGGERED WHEN PLAY BUTTON IN MENU SCREEN IS CLICKED
+							 });
+							 
+							$(oMain).on("end_session", function(evt) {
+									//THIS EVENT IS TRIGGERED WHEN GAME IS OVER OR THE EXIT BUTTON IS CLICKED.
+							});
+							
+							$(oMain).on("start_level", function(evt, iLevel) {
+									//THIS EVENT IS TRIGGERED WHEN NEW LEVEL STARTS
+							});
+							
+							$(oMain).on("end_level", function(evt, iLevel) {
+									//THIS EVENT IS TRIGGERED WHEN THE CURRENT LEVEL IS OVER
+							});
+							
+							$(oMain).on("save_score", function(evt,iScore) {
+									//THIS EVENT IS TRIGGERED GAME IS OVER. IT CAN BE USEFUL TO CALL PHP SCRIPTS (NOT PROVIDED IN THE PACKAGE) THAT SAVE THE SCORE.
+							 });
+							 
+							 $(oMain).on("show_interlevel_ad", function(evt) {
+									//THIS EVENT IS TRIGGERED WHEN LEVEL IS OVER. MAY BE USEFUL TO CALL ADS SCRIPT.
+							 });
+							 
+							 $(oMain).on("share_event", function(evt,iScore) {
+									//THIS EVENT IS TRIGGERED WHEN USER CLICK EXIT BUTTON. CAN BE USEFUL TO CALL SHARING FEATURE SCRIPTS.
+							 });
+						   });
+						
+				  </script>
+				  
+				<canvas id="canvas" class='ani_hack' width="960" height="540"> </canvas>
+			</body>
+		</pre>
+		
+		<hr>
+
+		<h3 id="cssFiles"><strong>E) CSS Files and Structure</strong> - <a href="#toc">top</a></h3>
+
+		<p>The game use two CSS files. The first one is a generic reset file. Many browser interpret the default behavior of html elements differently. By using a general reset CSS file, we can work round this. 
+		Keep in mind, that these values might be overridden somewhere else in the file.</p> 
+
+		<p>The second file contains all of the specific stylings for the canvas and some hack to be fully compatible with all most popular mobile devices</p>  
+
+		<hr>
+		
+		<h3 id="javascript"><strong>F) JavaScript</strong> - <a href="#toc">top</a></h3>
+		
+		<p>This game contains:</p>
+		
+		<ol>
+			<li>jQuery</li>
+			<li>Our custom scripts</li>
+			<li>CreateJs plugin</li>
+			<li>Howler Sound library</li>
+		</ol>
+		  
+		<ol>
+			<li>jQuery is a Javascript library that greatly reduces the amount of code that you must write.</li>
+			<li>The game have the following js files:
+	
+			<ul>
+				<li>CMain: the main class called by the index file. <br>This file controls the sprite_lib.js file that manages the sprite loading, the loop game and initialize the canvas with the CreateJs library</li>
+				<li>ctl_utils: this file manages the canvas resize and its centering</li>
+				<li>sprite_lib: this class loads all images declared in the main class</li>
+				<li>settings: general game settings</li>
+				<li>CLang: global string variables for language localization</li>
+				<li>CPreloader: simple text preloader to show resources loading progress</li>
+				<li>CMenu: simple menu with play button</li>
+				<li>CGfxButton: this class create a standard button</li>
+				<li>CTextButton: this class create a standard text button</li>
+				<li>CGame: this class manages the game logic</li>
+				<li>CBezier: this class manages the creation of level path</li>
+				<li>CExtraScore: this class manages objet 'extra_score.png' taht appears when level is cleared</li>
+				<li>CInterface: this class controls game GUI that contains text and buttons</li>
+				<li>CEndPanel: this class controls the game over panel that appears when player lose all the lives</li>
+				<li>CLevelSettings: this class contains all infos relative to level creation and complexity</li>
+				<li>CNextLevel: this class show the "Next Level" screen</li>
+			</ul>
+
+			</li>
+			
+			<li>CreateJs is a suite of modular libraries and tools which work together to enable rich interactive content on open web technologies via HTML5.
+			</li>
+			
+			<li>Howler is a javascript Audio library.
+			</li>
+		</ol>
+		
+		<p>Resuming, the complete game flow is the following: </p>
+		<ol>
+			<li>The index.html file calls the CMain.js file after ready event is called</li>
+			<li>The main class calls CPreloader.js to init preloader text and start sprite loading</li>
+			<li>When all sprites contained in "/sprites" folder are loaded, the main class removes the preloader and calls the CMenu.js file that shows the main menu</li>
+			<li>If user click on the play button in main menu, the CGame.js class is called and the game starts</li>
+			<li>If balls reach the end point, the game is over and the game shows the game over panel</li>
+			<li>If the player destroyes all the ball in stage, the game show the next level panel.</li>
+			<li>If user click on the exit button in the up-right corner, the game returns to the menu screen</li>	
+		</ol>		
+		
+		<hr>
+		
+		<h3 id="game_function"><strong>G) Game functions</strong> - <a href="#toc">top</a></h3>
+			In this section will be explained all the most important functions used in <strong>CGame.js</strong> file. <br><br>
+		
+		<ul>
+			<li><strong>_init()</strong> <br>
+				This function attach on the canvas some game sprites like background (oBg), GUI and hero. It also creates the level path.
+			</li>
+			<li><strong>unload()</strong> <br>
+				This function removes all images from canvas and event listeners on buttons. It's called when user decide to exit from the game.
+			</li>
+			<li><strong>_initCurve()</strong> <br>
+				This function create the ball path for the current level.
+			</li>
+			<li><strong>onIntroduceBall()</strong> <br>
+				This function manages the ball movement after initial ball roll-in.
+			</li>
+			<li><strong>shoot()</strong> <br>
+				This function is called when the player shot a ball.
+			</li>
+			<li><strong>_checkCollision()</strong> <br>
+				This function check if there is any collision when a ball is shot.
+			</li>
+			<li><strong>_attract()</strong> <br>
+				This function is called when after a combo, the ball queue must be joined.
+			</li>
+			<li><strong>_clearBall()</strong> <br>
+				This function is called when there is a combo.
+			</li>
+			<li><strong>update()</strong> <br>
+				This function manages the game loop.
+			</li>
+			
+		</ul>
+		
+		<hr>
+
+
+		<h3 id="spritesheet"><strong>H) Change Sprites</strong> - <a href="#toc">top</a></h3>
+		<p>The folder 'sprites' contains all the images of the game that can be replaced. Please be aware that new if you want to reskin the game graphic without any coding, your images must have the same size and file format of the old ones.
+		The game contains the ball spritesheets that you must edit if you want to change ball images. <br>
+		
+		<ul>
+			<li><strong>ball_0.png: </strong>This is the ball spritesheet that containes the movement animation (50 frames). 
+			<br>
+			<br>
+			<img src="assets/images/ball_0.png" alt="ball spritesheet" />
+			<br>
+			<br>
+			
+		</ul>
+		
+		<h3 id="new_level"><strong>I)New Levels</strong> - <a href="#toc">top</a></h3>
+		<p> Please keep in mind that this package contains 3 levels. So if you need some other levels, please contact us at <a href="http://www.codethislab.com" target="_blank">http://codecanyon.net/user/codethislab</a> <br>
+		We sell the following levels separately:</p>
+		
+		<ul>
+			<li><strong>Level 4</strong> 
+			<br>
+			<br>
+			<img src="assets/images/level_4.jpg" alt="level 4" />
+			<br>
+			<br>
+			
+			<li><strong>Level 5</strong> 
+			<br>
+			<br>
+			<img src="assets/images/level_5.jpg" alt="level 5" />
+			<br>
+			<br>
+			
+			<li><strong>Level 6</strong> 
+			<br>
+			<br>
+			<img src="assets/images/level_6.jpg" alt="level 6" />
+			<br>
+			<br>
+			
+			<li><strong>Level 7</strong> 
+			<br>
+			<br>
+			<img src="assets/images/level_7.jpg" alt="level 7" />
+			<br>
+			<br>
+			
+			<li><strong>Level 8</strong> 
+			<br>
+			<br>
+			<img src="assets/images/level_8.jpg" alt="level 8" />
+			<br>
+			<br>
+			
+			<li><strong>Level 9</strong> 
+			<br>
+			<br>
+			<img src="assets/images/level_9.jpg" alt="level 9" />
+			<br>
+			<br>
+			
+			<li><strong>Level 10</strong> 
+			<br>
+			<br>
+			<img src="assets/images/level_10.jpg" alt="level 10" />
+			<br>
+			<br>
+			
+			<li><strong>Level 11</strong> 
+			<br>
+			<br>
+			<img src="assets/images/level_11.jpg" alt="level 11" />
+			<br>
+			<br>
+			
+			<li><strong>Level 12</strong> 
+			<br>
+			<br>
+			<img src="assets/images/level_12.jpg" alt="level 12" />
+			<br>
+			<br>
+			
+			<li><strong>Level 13</strong> 
+			<br>
+			<br>
+			<img src="assets/images/level_13.jpg" alt="level 13" />
+			<br>
+			<br>
+			
+		</ul>
+		
+		<h3 id="disable_sound"><strong>J)Disable Sounds</strong> - <a href="#toc">top</a></h3>
+		<p>If you want to disable all the sounds for mobile devices, you have to change the following value in settings.js file:</p>
+			<pre class="brush: js">var DISABLE_SOUND_MOBILE = true;</pre>
+		
+		<br><br>
+		
+		<h3 id="wp"><strong>K) Wordpress Plugin</strong> - <a href="#toc">top</a></h3>
+		<p><a href="http://codecanyon.net/item/ctl-arcade-wordpress-plugin/13856421?ref=codethislab">CTL Arcade</a> will allow you to add a real arcade on your worpress website, in this way your users will be more involved and will stay connected longer.<br><br>
+			It's possible to add Ads banner at the beginning of each game and at the end of each level. This will give you a new tool to increase your revenues.<br><br>
+			Your own users will promote your website sharing their scores on the main Social Networks, with no extra costs for you.<br><br>
+			You'll get by default the score-sharing on Twitter. To add Facebook just follow the guideline below.<br><br>
+			3 widgets can be added in your pages through a shortcode.<br>
+			<ul>
+				<li><strong>Game iframe</strong></li>
+				<li><strong>Rate the Game</strong></li>
+				<li><strong>Leaderboard</strong></li>
+			</ul>
+			Minimum Requirements:<br><br>
+			<ul>
+				<li><strong>PHP 4.3</strong></li>
+				<li><strong>WordPress 4.3.1</strong></li>
+				<li><strong>HTML5</strong></li>
+				<li><strong>Canvas</strong></li>
+				<li><strong>Javascript / jQuery</strong></li>
+			</ul>
+			
+			<strong>This plugin is designed to work only with games built by Code This Lab.</strong>
+			<br><br>
+			You can find it <a href="http://codecanyon.net/item/ctl-arcade-wordpress-plugin/13856421?ref=codethislab">here!</a> 
+			
+		</p>
+		<a href="http://codecanyon.net/item/ctl-arcade-wordpress-plugin/13856421?ref=codethislab">
+			<img src="assets/images/ctl_arcade.jpg" alt="ctl arcade" />
+		</a>
+		
+		<br><br>
+		<p>Once again, thank you so much for purchasing this game. Fell free to contact us if you have any questions or issue relating to this game. No guarantees, but we'll do our best to assist.</p> 
+		
+		<p class="append-bottom alt large"><a href="http://www.codethislab.com" target="_blank"><strong>CODE THIS LAB S.R.L.</strong></a></p>
+		<p><a href="#toc">Go To Table of Contents</a></p>
+		
+		<hr class="space">
+	</div>
+	<!-- end div .container -->
+
+	<script type="text/javascript">
+		 SyntaxHighlighter.all()
+	</script>
+</body>
+</html>

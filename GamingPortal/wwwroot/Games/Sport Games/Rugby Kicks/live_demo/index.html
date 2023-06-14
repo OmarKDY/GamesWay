@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>RUGBY KICKS</title>
+        <link rel="stylesheet" href="css/reset.css" type="text/css">
+        <link rel="stylesheet" href="css/main.css" type="text/css">
+        <link rel="stylesheet" href="css/orientation_utils.css" type="text/css">
+        <link rel="stylesheet" href="css/ios_fullscreen.css" type="text/css">
+        <link rel='shortcut icon' type='image/x-icon' href='./favicon.ico' />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, minimal-ui" />
+	<meta name="msapplication-tap-highlight" content="no"/>
+
+        <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+        <script type="text/javascript" src="js/createjs.min.js"></script>
+        <script type="text/javascript" src="js/howler.min.js"></script>
+        <script type="text/javascript" src="js/main.js"></script>
+    </head>
+    <body ondragstart="return false;" ondrop="return false;" >
+	<div style="position: fixed; background-color: transparent; top: 0px; left: 0px; width: 100%; height: 100%"></div>
+          <script>
+            $(document).ready(function(){
+                     var oMain = new CMain({
+                                            shot_indicator_spd: 2200,           //STARTING TIME IT TAKES THE TOKEN TO GO FROM SIDE TO SIDE OF THE KICKING BAR.  
+                                                                                //IT IS EXPRESSED IN MILLISECONDS
+                                                                                //INCREASE THIS VALUE IF YOU WANT TO SLOW DOWN THE TOKEN
+                                            decrease_shot_indicator_spd: 200,    //EVERY NEW LEVEL, THE GAME WILL DECREASE THIS AMOUNT FROM THE STARTING TIME ABOVE
+                                                                                //DECREAE THIS VALUE TO MAKE THE GAME EASIER
+                                            
+                                            shots_per_stage: 5,                 //NUMBER OF SHOTS PER STAGE
+                                            
+                                            red_area_points: 100,               //POINTS GAINED TO GET THE BALL IN RED AREA
+                                            yellow_area_points: 200,            //POINTS GAINED TO GET THE BALL IN YELLOW AREA
+                                            green_area_points: 500,              //POINTS GAINED TO GET THE BALL IN GREEN AREA
+                                            audio_enable_on_startup:false, //ENABLE/DISABLE AUDIO WHEN GAME STARTS 
+                                            fullscreen:true,        //SET THIS TO FALSE IF YOU DON'T WANT TO SHOW FULLSCREEN BUTTON
+                                            check_orientation:true //SET TO FALSE IF YOU DON'T WANT TO SHOW ORIENTATION ALERT ON MOBILE DEVICES                 
+                                           });
+                                           
+                                           
+                    $(oMain).on("start_session", function(evt) {
+                            if(getParamValue('ctl-arcade') === "true"){
+                                parent.__ctlArcadeStartSession();
+                            }
+                            //...ADD YOUR CODE HERE EVENTUALLY
+                    });
+                     
+                    $(oMain).on("end_session", function(evt) {
+                           if(getParamValue('ctl-arcade') === "true"){
+                               parent.__ctlArcadeEndSession();
+                           }
+                           //...ADD YOUR CODE HERE EVENTUALLY
+                    });
+
+                    $(oMain).on("save_score", function(evt,iScore, szMode) {
+                           if(getParamValue('ctl-arcade') === "true"){
+                               parent.__ctlArcadeSaveScore({score:iScore, mode: szMode});
+                           }
+                           //...ADD YOUR CODE HERE EVENTUALLY
+                    });
+
+                    $(oMain).on("start_level", function(evt, iLevel) {
+                           if(getParamValue('ctl-arcade') === "true"){
+                               parent.__ctlArcadeStartLevel({level:iLevel});
+                           }
+                           //...ADD YOUR CODE HERE EVENTUALLY
+                    });
+
+                    $(oMain).on("end_level", function(evt,iLevel) {
+                           if(getParamValue('ctl-arcade') === "true"){
+                               parent.__ctlArcadeEndLevel({level:iLevel});
+                           }
+                           //...ADD YOUR CODE HERE EVENTUALLY
+                    });
+
+                    $(oMain).on("show_interlevel_ad", function(evt) {
+                           if(getParamValue('ctl-arcade') === "true"){
+                               parent.__ctlArcadeShowInterlevelAD();
+                           }
+                           //...ADD YOUR CODE HERE EVENTUALLY
+                    });
+                    
+                    $(oMain).on("share_event", function(evt, iScore) {
+                           if(getParamValue('ctl-arcade') === "true"){
+                               parent.__ctlArcadeShareEvent({   img: TEXT_SHARE_IMAGE,
+                                                                title: TEXT_SHARE_TITLE,
+                                                                msg: TEXT_SHARE_MSG1 + iScore + TEXT_SHARE_MSG2,
+                                                                msg_share: TEXT_SHARE_SHARE1 + iScore + TEXT_SHARE_SHARE1});
+                           }
+                           //...ADD YOUR CODE HERE EVENTUALLY
+                    });
+					 
+                    if(isIOS()){ 
+                        setTimeout(function(){sizeHandler();},200); 
+                    }else{ sizeHandler(); } 
+                                         
+           });
+
+        </script>
+        
+        <div class="check-fonts">
+            <p class="check-font-1">test 1</p>
+        </div> 
+        
+        
+        <canvas id="canvas" class='ani_hack' width="640" height="1024"> </canvas>
+        <div data-orientation="portrait" class="orientation-msg-container"><p class="orientation-msg-text">Please rotate your device</p></div>
+        <div id="block_game" style="position: fixed; background-color: transparent; top: 0px; left: 0px; width: 100%; height: 100%; display:none"></div>
+
+    </body>
+</html>

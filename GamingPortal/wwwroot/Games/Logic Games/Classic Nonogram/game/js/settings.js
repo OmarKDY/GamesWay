@@ -1,0 +1,47 @@
+var GAME_NAME = "classic_nonogram";
+
+var CANVAS_WIDTH = 1920;
+var CANVAS_HEIGHT = 1920;
+
+var EDGEBOARD_X = 0;
+var EDGEBOARD_Y = 0;
+
+var FONT = "asap-bold";
+var COLOR_0 = "#fff";
+var COLOR_1 = "#008df0"
+var COLOR_2 = "#ff8814";
+var ENABLE_FULLSCREEN;
+
+var FPS      = 30;
+var DISABLE_SOUND_MOBILE = false;
+
+var STATE_LOADING = 0;
+var STATE_MENU    = 1;
+var STATE_MODE    = 2;
+var STATE_GAME    = 3;
+var STATE_LEVEL_MENU = 4;
+var STATE_TUTORIAL = 5;
+
+var CELL_STATE_EMPTY = 0;
+var CELL_STATE_FILLED = 1;
+var CELL_STATE_LOCKED = 2;
+
+var ON_MOUSE_DOWN  = 0;
+var ON_MOUSE_UP    = 1;
+var ON_MOUSE_OVER  = 2;
+var ON_MOUSE_OUT   = 3;
+var ON_BUT_YES_DOWN  = 4;
+var ON_BUT_NO_DOWN  = 5;
+
+var CUR_GRID_SCALE = 1;
+var CUR_INTERFACE_SCALE = CUR_GRID_SCALE;
+var MAX_TABLE_HEIGHT = 1802;
+var CELL_WIDTH = 96;
+var CELL_HEIGHT = 106;
+var INSTRUCTION_WIDTH = 288;
+var INSTRUCTION_HEIGHT_VERTICAL = 288;
+var SWITCH_TOGGLE_WIDTH = 110;
+var SWITCH_TOGGLE_HEIGHT = 126;
+
+var SOUNDTRACK_VOLUME_IN_GAME = 0.5;
+var NUM_LIVES;

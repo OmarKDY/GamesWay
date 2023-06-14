@@ -1,0 +1,20 @@
+var TEXT_PRELOADER_CONTINUE = "START";
+var TEXT_GAMEOVER = "GAME OVER";
+var TEXT_SCORE = "TOTAL SCORE";
+var TEXT_HELP1_PC = "PRESS SPACE BAR TO SWITCH";
+var TEXT_HELP1_MOBILE = "TOUCH DISPLAY TO SWITCH";
+var TEXT_POWER = "POWER";
+var TEXT_EFFECT = "EFFECT";
+var TEXT_TOTAL = "TOTAL";
+var TEXT_ARE_SURE = "ARE YOU SURE?";
+var TEXT_CREDITS_DEVELOPED = "DEVELOPED BY";
+var TEXT_LINK1 = "WWW.CODETHISLAB.COM";
+var TEXT_MOVE = "MOVE";
+var TEXT_PERFECT = "PERFECT SCORE";
+
+var TEXT_SHARE_IMAGE = "200x200.jpg";
+var TEXT_SHARE_TITLE = "Congratulations!";
+var TEXT_SHARE_MSG1 = "You collected <strong>";
+var TEXT_SHARE_MSG2 = " points</strong>!<br><br>Share your score with your friends!";
+var TEXT_SHARE_SHARE1 = "My score is ";
+var TEXT_SHARE_SHARE2 = " points! Can you do better?";

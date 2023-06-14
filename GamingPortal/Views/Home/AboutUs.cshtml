@@ -1,0 +1,25 @@
+﻿@using GamingPortal.Controllers;
+@using Microsoft.AspNetCore.Mvc.Localization;
+@using Microsoft.Extensions.Localization;
+@inject IStringLocalizer<HomeController> localizer;
+
+<style>
+    .games-section{
+        padding:158px 0;
+    }
+</style>
+<body>
+    <section class="games-section">
+        <div class="container">
+<section class="hero-section overflow-hidden">
+    <div class="hero-slider owl-carousel">
+            <div style="padding-top:25px;" class="container">
+                        <h2 style="color:white;">@localizer["About"]</h2>
+                        <p style="color:white;">@localizer["AboutParagraph"]</p>
+            </div>
+        </div>
+</section>
+        </div>
+    </section>
+
+</body>

@@ -1,0 +1,49 @@
+var CANVAS_WIDTH = 768;
+var CANVAS_HEIGHT = 1440;
+
+var EDGEBOARD_X = 10;
+var EDGEBOARD_Y = 265;
+
+var FPS = 30;
+var FPS_TIME      = 1000/FPS;
+var DISABLE_SOUND_MOBILE = false;
+var FONT_GAME = "arial-webfont";
+
+var STATE_LOADING    = 0;
+var STATE_MENU       = 1;
+var STATE_MENU_MODE = 2;
+var STATE_GAME       = 3;
+
+var ON_MOUSE_DOWN = 0;
+var ON_MOUSE_UP   = 1;
+var ON_MOUSE_OVER = 2;
+var ON_MOUSE_OUT  = 3;
+var ON_BUT_YES_DOWN  = 4;
+var ON_SELECT_POINT = 5;
+var ON_SELECT_PIECE = 6;
+var ON_RESTART = 7;
+var ON_BACK_MENU = 8;
+
+var GAME_STATE_PLACING = 0;
+var GAME_STATE_MOVEMENT = 1;
+
+
+var MODE_HUMANS = 0;
+var MODE_CPU = 1;
+
+var WHITE_PLAYER = 0;
+var BLACK_PLAYER = 1;
+
+var PIECE_POINTS;
+var PIECE_WIDTH = 100;
+var PIECE_HEIGHT = 100;
+var NUM_PIECES = 9;
+var PIECE_START_Y_OFFSET = 19;
+var PIECE_SCALE_IN_BOARD = 0.5;
+var NUM_MILLS = 16;
+var NUM_BOARD_POINTS = 24;
+var WASTE_PIECE_POS = {x:300,y:-500};
+var AI_TIME = 1000;
+
+var ENABLE_FULLSCREEN;
+var ENABLE_CHECK_ORIENTATION;

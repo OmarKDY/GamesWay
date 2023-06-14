@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>HERO JUMP</title>
+        <link rel="stylesheet" href="css/reset.css" type="text/css">
+        <link rel="stylesheet" href="css/main.css" type="text/css">
+        <link rel="stylesheet" href="css/orientation_utils.css" type="text/css">
+        <link rel='shortcut icon' type='image/x-icon' href='./favicon.ico' />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, minimal-ui" />
+	<meta name="msapplication-tap-highlight" content="no"/>
+
+       <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+        <script type="text/javascript" src="js/createjs.min.js"></script>
+        <script type="text/javascript" src="js/howler.min.js"></script>
+        <script type="text/javascript" src="js/CLang.min.js"></script>
+        <script type="text/javascript" src="js/main.js"></script>
+        
+    </head>
+    <body ondragstart="return false;" ondrop="return false;" >
+	<div style="position: fixed; background-color: transparent; top: 0px; left: 0px; width: 100%; height: 100%"></div>
+          <script>
+            $(document).ready(function(){
+                     var oMain = new CMain({
+                                            player_spd_max: 15,                      //maximum speed that the player can reach
+                                            player_spd_min: 0.2,                     //minimum speed that the player can reach
+                                            player_acceleration_no_giroscope: 1.2,   //the accelleration to moltiply to the velocity to the player when there is no giroscope on device
+                                            player_acceleration_giroscope: 1.1,      //the accelleration to moltiply to the velocity to the player when there is the giroscope on device
+                                            player_deceleration: 0.9,                //deceleration to add to the player in way to reache the player_spd_min
+                                            object_spd: 5,                           //speed of the object (when they are going to move vertically)
+                                            object_spd_orizzontal: 4,                //speed of the object (when they are going to move orizontally)
+                                            acceleration: 4,                         //acceleration of the various objects ( platforms, coins, ... )
+                                            deceleration: 0.8,                       //deceleration of the various objects ( platforms, coins, ... )
+                                            deceleration_bg_game_over: 0.5,          //deceleration of the game background when there is a game over
+                                            object_spd_max: 17,                      //maximum speed that the varios object can reach
+                                            object_spd_min: -17,                     //minimum speed that the varios object can reach
+                                            gamma_range_accepted: 4,                 //maxinum gamma read from the game, the more it is, the more the game is difficult (if there is a giroscope)
+                                            canvas_half_width_range_accepted: 215,   //cursor range accepted (calculated by the half measure of the canvas width +- this value), if there is no giroscope
+                                            num_platform_created_for_spring: 20,     //number of platform to create before the game decide if it have or not to spawn a spring
+                                            height_between_object: [50, 60, 70, 80], //distance from a platform to another
+                                            coin_occurrence: 100,                     //occurrence percentage of the coin. Set this between 0-100.
+                                            bonus_occurrence:1,                       //occurrence percentage of the 'Super Jump' power-up. Set this between 0-100.
+                                            fullscreen:true,        //SET THIS TO FALSE IF YOU DON'T WANT TO SHOW FULLSCREEN BUTTON
+                                            audio_enable_on_startup:false, //ENABLE/DISABLE AUDIO WHEN GAME STARTS 
+                                            check_orientation:true //SET TO FALSE IF YOU DON'T WANT TO SHOW ORIENTATION ALERT ON MOBILE DEVICES
+                                           });
+                                           
+                                           
+                    $(oMain).on("start_session", function(evt) {
+                        if(getParamValue('ctl-arcade') === "true"){
+                                parent.__ctlArcadeStartSession();
+                        }     
+                    });
+
+                    $(oMain).on("end_session", function(evt) {
+                           if(getParamValue('ctl-arcade') === "true"){
+                               parent.__ctlArcadeEndSession();
+                           }
+                    });
+
+                    $(oMain).on("save_score", function(evt,iScore, szMode) {
+                           if(getParamValue('ctl-arcade') === "true"){
+                               parent.__ctlArcadeSaveScore({score:iScore, mode: szMode});
+                           }
+                    });
+					
+                    $(oMain).on("restart_level", function(evt, iLevel) {
+                           if(getParamValue('ctl-arcade') === "true"){
+                               parent.__ctlArcadeRestartLevel({level:iLevel});
+                           }
+                    });
+					
+                    $(oMain).on("start_level", function(evt, iLevel) {
+                           if(getParamValue('ctl-arcade') === "true"){
+                               parent.__ctlArcadeStartLevel({level:iLevel});
+                           }
+                    });
+
+                    $(oMain).on("end_level", function(evt,iLevel) {
+                           if(getParamValue('ctl-arcade') === "true"){
+                               parent.__ctlArcadeEndLevel({level:iLevel});
+                           }
+                    });
+
+                    $(oMain).on("show_interlevel_ad", function(evt) {
+                           if(getParamValue('ctl-arcade') === "true"){
+                               parent.__ctlArcadeShowInterlevelAD();
+                           }
+                    });
+                    
+                    $(oMain).on("share_event", function(evt, iScore) {
+                           if(getParamValue('ctl-arcade') === "true"){
+                               parent.__ctlArcadeShareEvent({   img: TEXT_SHARE_IMAGE,
+                                                                title: TEXT_SHARE_TITLE,
+                                                                msg: TEXT_SHARE_MSG1 + iScore + TEXT_SHARE_MSG2,
+                                                                msg_share: TEXT_SHARE_SHARE1 + iScore + TEXT_SHARE_SHARE1});
+                           }
+                    });
+
+                    if(isIOS()){
+                        setTimeout(function(){sizeHandler();},200);
+                    }else{
+                        sizeHandler();
+                    }
+           });
+
+        </script>
+        
+        <div class="check-fonts">
+            <p class="check-font-1">test 1</p>
+        </div> 
+        
+        <canvas id="canvas" class='ani_hack' width="640" height="960"> </canvas>
+        <div data-orientation="portrait" class="orientation-msg-container"><p class="orientation-msg-text">Please rotate your device</p></div>
+        <div id="block_game" style="position: fixed; background-color: transparent; top: 0px; left: 0px; width: 100%; height: 100%; display:none"></div>
+
+    </body>
+</html>

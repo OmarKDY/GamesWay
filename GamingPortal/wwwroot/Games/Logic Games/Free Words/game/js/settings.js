@@ -1,0 +1,47 @@
+var CANVAS_WIDTH = 1700;
+var CANVAS_HEIGHT = 768;
+
+var EDGEBOARD_X = 300;
+var EDGEBOARD_Y = 0;
+
+var FPS = 30;
+var FPS_TIME      = 1000/FPS;
+var DISABLE_SOUND_MOBILE = false;
+
+var PRIMARY_FONT = "comfortaa";
+
+var STATE_LOADING = 0;
+var STATE_MENU    = 1;
+var STATE_LANGUAGE_MENU = 2;
+var STATE_HELP    = 3;
+var STATE_GAME    = 4;
+
+var ON_MOUSE_DOWN  = 0;
+var ON_MOUSE_UP    = 1;
+var ON_MOUSE_OVER  = 2;
+var ON_MOUSE_OUT   = 3;
+var ON_DRAG_START  = 4;
+var ON_DRAG_END    = 5;
+var ON_RELEASE_YES = 6;
+var ON_RELEASE_NO  = 7;
+
+var MIN_NUM_WORDS = 20;
+var MAX_NUM_WORDS = 25;
+var NUM_LANGUAGES = 6;
+var LANG_0 = "EN";
+var LANG_1 = "SPA";
+var LANG_2 = "FRA";
+var LANG_3 = "DE";
+var LANG_4 = "IT";
+var LANG_5 = "POR";
+
+var TIME_LEVEL;
+var POINT_PER_LETTER;
+var BONUS_MULTIPLIER;
+var WORD_LENGTH = 6;
+var BOARD_X = 385;
+var BOARD_Y = 135;
+
+var ENABLE_FULLSCREEN;
+var ENABLE_CHECK_ORIENTATION;
+var SOUNDTRACK_VOLUME_IN_GAME = 0.3;

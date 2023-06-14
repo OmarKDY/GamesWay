@@ -1,0 +1,63 @@
+﻿@{
+    Layout = "_IdentityLayout";
+}
+
+<style>
+    .parentClass {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        width: auto;
+    }
+
+    .childClass {
+        padding: 20px;
+        background-color: #f4f4f4;
+        border: 5px solid;
+        border-image: linear-gradient(to bottom right, #501755, #2d1854) 1;
+        border-radius: 10px;
+        transition: transform 0.8s ease-in-out;
+        box-shadow: 0 0 0 white;
+        animation: shine 1.5s infinite;
+    }
+
+        .childClass:hover {
+            transform: scale(1.05);
+            animation: none;
+            box-shadow: 0 0 20px white;
+        }
+
+    @@keyframes shine {
+        0% {
+            box-shadow: 0 0 0 white;
+        }
+
+        50% {
+            box-shadow: 0 0 20px white;
+        }
+
+        100% {
+            box-shadow: 0 0 0 white;
+        }
+    }
+</style>
+
+
+<div class="parentClass">
+    <div class="col-md-4 childClass">
+            <h2 style="font-weight:500;">Al3abbi Portal</h2>
+            <p>
+            Term and Conditions: </br>
+            By subscribing, you agree to the below terms and conditions:
+            You will start the paid subscription automatically after the free trial.
+            Free for 24Hrs then AED 3 per Day (VAT Included)
+            No commitment, you can cancel at any time by sending C Yalla to 1111 for Etisalat.
+            For Support you can contact us vas@ertibaattenogies.com
+            Please make sure that your browser is not using any 3rd-party blocking technologies and you have a healthy internet connection for swift access to the content.
+            </p>
+        <a asp-area="Identity" asp-page="/Account/Register">
+            <button type="submit" class="btn btn-lg btn-danger">Back</button>
+        </a>
+    </div>
+</div>

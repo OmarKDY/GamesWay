@@ -1,0 +1,22 @@
+TEXT_SCORE = "SCORE";
+TEXT_GAMEOVER = "GAME OVER";
+TEXT_LEVEL = "Level";
+TEXT_COMPLETE = "Complete";
+TEXT_CONGRATULATIONS = "all levels completed... Congratulations!";
+TEXT_TOTAL_SCORE = "Total score";
+TEXT_TIME_IS_UP = "Time Is Up";
+TEXT_HELP_PAGE_1 = "Hit all the balls, but be careful! From each sphere two smaller will come out!";
+TEXT_HELP_PAGE_2_MOBILE = "The left side of the screen is your joystick, touch it to move the hero. Tap the right one to shoot.";
+TEXT_HELP_PAGE_2_PC = "USE ARROW KEY TO MOVE THE CHARACTER, SHOOT PRESSING SPACEBAR";
+TEXT_HELP_PAGE_3_PART1 = "FOR EVERY";
+TEXT_HELP_PAGE_3_PART2 = "POINTS SCORED, YOU'LL GET AN EXTRA LIFE";
+TEXT_EXTRA_LIFE = "EXTRA LIFE";
+TEXT_ADDED = "ADDED";
+TEXT_DEVELOPED_BY = "DEVELOPED BY";
+
+TEXT_SHARE_IMAGE = "200x200.jpg";
+TEXT_SHARE_TITLE = "Congratulations!";
+TEXT_SHARE_MSG1 = "You collected <strong>";
+TEXT_SHARE_MSG2 = " points</strong>!<br><br>Share your score with your friends!";
+TEXT_SHARE_SHARE1 = "My score is ";
+TEXT_SHARE_SHARE2 = " points! Can you do better";

@@ -1,0 +1,430 @@
+<html xmlns="http://www.w3.org/1999/xhtml"  > 
+<head lang="en">
+	<meta http-equiv="content-type" content="text/html;charset=utf-8">
+	<title>Penalty Challenge</title>
+	<!-- Framework CSS -->
+	<link rel="stylesheet" href="assets/blueprint-css/screen.css" type="text/css" media="screen, projection">
+	<link rel="stylesheet" href="assets/blueprint-css/print.css" type="text/css" media="print">
+	<link href="styles/shCore.css" rel="stylesheet" type="text/css" >
+	<link href="styles/shCoreDefault.css" rel="stylesheet" type="text/css" >
+	<link href="styles/shThemeDefault.css" rel="stylesheet" type="text/css" >
+	
+	<!--[if lt IE 8]><link rel="stylesheet" href="assets/blueprint-css/ie.css" type="text/css" media="screen, projection"><![endif]-->
+	<link rel="stylesheet" href="assets/blueprint-css/plugins/fancy-type/screen.css" type="text/css" media="screen, projection">
+	<style type="text/css" media="screen">
+		p, table, hr, .box { margin-bottom:25px; }
+		.box p { margin-bottom:10px; }
+	</style>
+	
+	<script type="text/javascript" src="scripts/shCore.js"></script>
+	<script type="text/javascript" src="scripts/shBrushJScript.js"></script>
+	<script type="text/javascript" src="scripts/shBrushXml.js"></script>
+</head>
+
+
+<body>
+	<div class="container">
+	
+		<h3 class="center alt">&ldquo;Penalty Challenge&rdquo; Documentation by &ldquo;Code This Lab S.r.l.&rdquo; v1.0</h3>
+		
+		<hr>
+		
+		<h1 class="center">&ldquo;Penalty Challenge&rdquo;</h1>
+		
+		<div class="borderTop">
+			<div class="span-6 colborder info prepend-1">
+				<p class="prepend-top">
+					<strong>
+					Created: 23/04/2018<br>
+					By: <a href="http://www.codethislab.com" target="_blank">Code This Lab S.r.l.</a><br>
+					Email: <a href="mailto:info@codethislab.com">info@codethislab.com</a>
+					</strong>
+				</p>
+			</div><!-- end div .span-6 -->		
+	
+			<div class="span-12 last">
+				<p class="prepend-top append-0">Thank you for purchasing our game. If you have any questions that are beyond the scope of this help file, please feel free to email via user page contact form <a href="http://codecanyon.net/user/codethislab?ref=codethislab">here</a>. Thanks so much!</p>
+			</div>
+		</div><!-- end div .borderTop -->
+		
+		<hr>
+		
+		<h2 id="toc" class="alt">Table of Contents</h2>
+		<ol class="alpha">
+			<li><a href="#desc">Description</a></li>
+			<li><a href="#content">Folder Contents</a></li>
+			<li><a href="#start">Getting Started</a></li>
+			<li><a href="#htmlStructure">HTML Structure</a></li>
+			<li><a href="#cssFiles">CSS Files and Structure</a></li>
+			<li><a href="#javascript">Source Code</a></li>
+			<li><a href="#game_function">Game functions</a></li>
+			<li><a href="#change_graphics">Change Graphic</a></li>
+			<li><a href="#disable_sound">Disable Sounds</a></li>
+			<li><a href="#wp">Wordpress Plugin</a></li>
+		</ol>
+		
+		<hr>
+		
+		<h3 id="desc"><strong>A) Description</strong> - <a href="#toc">top</a></h3>
+		<p>Select between 32 different team your favorite one. 
+You have 5 attempts to pass the goalie and other 5 to save your opponent's kicks!
+It's all in your hands and feet!
+		<br>
+			
+			<br>
+			The ZIP package contains the game with 1280x640 resolution that scales to fit the whole screen device<br>
+			Just warning that for very wide screens, the game may not be perfectly full screen.
+			The game is fully compatible with all most common mobile devices.<br>
+			Sounds are enabled for mobile but we can't grant full audio compatibility on all mobile devices due to some well-know issue between some mobile-browser and HTML5.
+			So if you want to avoid sound loading, please read <a href="#disable_sound">Disable Sound</a> section). <br>
+			<strong>WARNING:</strong> Sounds can't be enabled for Windows Phone as this kind of device have unsolved issues with 'audio' and 'video' tag.
+			
+		</p>
+		<hr>
+		
+		<h3 id="content"><strong>B) Folder Contents</strong> - <a href="#toc">top</a></h3>
+		<p>
+			The item package contains the following folders:
+			<ul>
+			<li><strong>ctl_arcade_wp_plugin</strong>:<br> This folder contains the game version (zip file inside) that can be used with wordpress plugin <a href="https://codecanyon.net/item/ctl-arcade-wordpress-plugin/13856421">CTL Arcade</a><br/><br/></li>
+			<li><strong>game</strong>:<br> This folder contains the full source code that you can edit as you need.<br/><br/></li>
+			<li><strong>live_demo</strong>:<br>This folder contains the obfuscated version of the game. <strong>WARNING</strong>: you should use this version if you don't have to edit the original game.<br/><br/></li>
+			<li><strong>readme</strong>:<br>This folder contains the readme of the game.
+			</ul>
+		</p>
+		<hr>
+		
+		<h3 id="start"><strong>C)Getting Started</strong> - <a href="#toc">top</a></h3>
+			<p>To install the game just upload on your server the game folder live_demo.
+			
+			<ul>
+				<li><strong>Game Embedding: </strong>The proper way to embed the game is in a full-screen web page or in an iframe.<br>
+                                        In the first case the game will fit the screen size, in the second, that of the iframe.<br>
+                                        If the iframe size matches that of the screen, the game will fit accordingly.<br> 
+                                        The alignment will be proportioned to the aspect ratio of the game.<br>
+                                        To install the game in a WordPress website, we suggest to use our plugin <a href="http://codecanyon.net/item/ctl-arcade-wordpress-plugin/13856421?ref=codethislab"> CTL Arcade </a>. <br><br>
+
+				<li> <strong>Localization:</strong> You can easily change game text for different languages, changing string in <strong>CLang.js</strong></li>
+				
+				<pre class="brush: js">
+					var TEXT_MULTIPLIER = "x";
+					var TEXT_SCORE = "SCORE";
+					var TEXT_LEVEL_SCORE = "LEVEL SCORE";
+					var TEXT_TOTAL = "TOTAL SCORE";
+					var TEXT_GOAL = "GOAL!";
+					var TEXT_ARE_SURE = "ARE YOU SURE YOU WANT TO EXIT THE GAME?";
+					var TEXT_CONFIRM_DELETE = "ALL SAVING WILL BE DELETED! ARE YOU SURE?";
+					var TEXT_SAVED = "SAVED!";
+					var TEXT_MISSED = "MISS!";
+					var TEXT_HELP = "SWIPE TO KICK THE BALL";
+					var TEXT_HELP_KEEPER = "TAP THE SCREEN TO LET THE OPPONENT KICK";
+					var TEXT_WIN = "YOU WON";
+					var TEXT_LOSE = "YOU LOSE";
+					var TEXT_CREDITS_DEVELOPED = "DEVELOPED BY";
+					var TEXT_VS = "VS";
+					var TEXT_MATCH = "MATCH";
+					var TEXT_SELECT_TEAM = "SELECT YOUR TEAM";
+					var TEXT_MATCHES = "MATCHES";
+					var TEXT_ERR_LS = "YOUR WEB BROWSER DOES NOT SUPPORT LOCAL STORAGE. IF YOU'RE USING SAFARI, IT MAY BE RELATED TO PRIVATE BROWSING. AS A RESULT, SOME INFO MAY NOT BE SAVED OR SOME FEATURES MAY NOT BE AVAILABLE.";
+
+					var TEXT_TEAM = new Array();
+					TEXT_TEAM[0] = "RUSSIA";
+					TEXT_TEAM[1] = "JAPAN";
+					TEXT_TEAM[2] = "IRAN";
+					TEXT_TEAM[3] = "BRAZIL";
+					TEXT_TEAM[4] = "MEXICO";
+					TEXT_TEAM[5] = "BELGIUM";
+					TEXT_TEAM[6] = "SOUTH KOREA";
+					TEXT_TEAM[7] = "SAUDI ARABIA";
+					TEXT_TEAM[8] = "GERMANY";
+					TEXT_TEAM[9] = "ENGLAND";
+					TEXT_TEAM[10] = "SPAIN";
+					TEXT_TEAM[11] = "NIGERIA";
+					TEXT_TEAM[12] = "COSTA RICA";
+					TEXT_TEAM[13] = "POLAND";
+					TEXT_TEAM[14] = "EGYPT";
+					TEXT_TEAM[15] = "SERBIA";
+					TEXT_TEAM[16] = "ICELAND";
+					TEXT_TEAM[17] = "FRANCE";
+					TEXT_TEAM[18] = "PORTUGAL";
+					TEXT_TEAM[19] = "URUGUAY";
+					TEXT_TEAM[20] = "ARGENTINA";
+					TEXT_TEAM[21] = "COLOMBIA";
+					TEXT_TEAM[22] = "PANAMA";
+					TEXT_TEAM[23] = "SENEGAL";
+					TEXT_TEAM[24] = "MOROCCO";
+					TEXT_TEAM[25] = "TUNISIA";
+					TEXT_TEAM[26] = "SWITZERLAND";
+					TEXT_TEAM[27] = "CROATIA";
+					TEXT_TEAM[28] = "SWEDEN";
+					TEXT_TEAM[29] = "DENMARK";
+					TEXT_TEAM[30] = "AUSTRALIA";
+					TEXT_TEAM[31] = "PERU";
+				</pre>
+			</ul>
+			</p>
+		<hr>
+		
+		<h3 id="htmlStructure"><strong>D)HTML Structure</strong> - <a href="#toc">top</a></h3>
+		<p>This game have the canvas tag in the body. The ready event into the body calls the main function of the game: CMain(). 
+		<br>The head section declares all the javascript functions of the game. The whole project uses a typical object-oriented approach.<br> 
+		In the init function there are 8 mapped <a href="#events">events</a> that can be useful eventually for stats</p>
+		
+		<pre class="brush: js">
+			<body  ondragstart="return false;" ondrop="return false;" >
+				  <script>
+				   $(document).ready(function(){
+							$(oMain).on("start_session", function(evt) {
+									//THIS EVENT IS TRIGGERED WHEN PLAY BUTTON IN MENU SCREEN IS CLICKED
+							 });
+							 
+							$(oMain).on("end_session", function(evt) {
+									//THIS EVENT IS TRIGGERED WHEN THE EXIT BUTTON IS CLICKED.
+							});
+							
+							$(oMain).on("start_level", function(evt,iLevel) {
+									//THIS EVENT IS TRIGGERED WHEN GAME STARTS
+							});
+							
+							$(oMain).on("end_level", function(evt,iLevel) {
+									//THIS EVENT IS TRIGGERED WHEN CURRENT LEVEL IS OVER.
+							 });
+							 
+							$(oMain).on("save_score", function(evt,iScore, szMode) {
+									//THIS EVENT IS TRIGGERED WHEN GAME IS OVER. IT CAN BE USEFUL TO CALL PHP SCRIPTS (NOT PROVIDED IN THE PACKAGE) THAT SAVE THE SCORE.
+							 });
+							 
+							 $(oMain).on("show_interlevel_ad", function(evt) {
+									//THIS EVENT IS TRIGGERED WHEN GAME IS OVER. MAY BE USEFUL TO CALL ADS SCRIPT.
+							 });
+							 
+							 $(oMain).on("restart_level", function(evt,iLevel) {
+									//THIS EVENT IS TRIGGERED WHEN GAME IS RESTARTED
+							 });
+							 
+							 $(oMain).on("share_event", function(evt,iScore) {
+									//THIS EVENT IS TRIGGERED WHEN GAME OVER IS SHOWN.
+							 });
+						   });
+						
+				  </script>
+				  
+		          <canvas id="canvas" class='ani_hack' width="1280" height="640"> </canvas>
+			</body>
+		</pre>
+		<li><strong>Game option:</strong> You can easily customize game setting when creating a new instance of the game in <strong>index.html</strong> file</li>
+				<pre class="brush: js">
+				var oMain = new CMain({
+					area_goal: [{id: 0, probability: 100}, {id: 1, probability: 80}, {id: 2, probability: 60},
+                        {id: 3, probability: 80}, {id: 4, probability: 100}, {id: 5, probability: 75},
+                        {id: 6, probability: 60}, {id: 7, probability: 50}, {id: 8, probability: 60},
+                        {id: 9, probability: 75}, {id: 10, probability: 80}, {id: 11, probability: 65},
+                        {id: 12, probability: 70}, {id: 13, probability: 65}, {id: 14, probability: 80}], //PROBABILITY AREA GOALS START TO LEFT UP TO RIGHT DOWN 
+                    //0 1 2 3 4
+                    //5 6 7 8 9
+                    //10 11 12 13 14
+                  
+
+                    score_goal:10,
+                    score_goal_missed:-5,
+                    score_ball_saved: 5, //ADD SCORE WHEN THE GLOVES SAVE BALL
+                    score_goal_opponent: -5, // ADD SCORE WHEN THE OPPONENT GOAL
+                    audio_enable_on_startup:false, //ENABLE/DISABLE AUDIO WHEN GAME STARTS 
+                    check_orientation:true, //SET TO FALSE IF YOU DON'T WANT TO SHOW ORIENTATION ALERT ON MOBILE DEVICES
+                    fullscreen: true //SET THIS TO FALSE IF YOU DON'T WANT TO SHOW FULLSCREEN BUTTON
+				});
+				</pre>
+                The goal area (area_goal variable) is divided in several squares, you can make the game harder/easier by decreasing/increasing the possibility to score a goal in each area.
+                See image below: 
+                
+                <img src="assets/images/penalty_points_scheme.jpg" alt="ctl arcade" />
+		<hr>
+
+		<h3 id="cssFiles"><strong>E) CSS Files and Structure</strong> - <a href="#toc">top</a></h3>
+
+		<p>The game use two CSS files. The first one is a generic reset file. Many browser interpret the default behavior of html elements differently. By using a general reset CSS file, we can work round this. 
+		Keep in mind, that these values might be overridden somewhere else in the file.</p> 
+		<p>The second file contains all of the specific stylings for the canvas and some hack to be fully compatible with all most popular mobile devices</p>  
+
+		<hr>
+		
+		<h3 id="javascript"><strong>F) Source Code</strong> - <a href="#toc">top</a></h3>
+		
+		<p>This game contains:</p>
+		
+		<ol>
+			<li>jQuery</li>
+			<li>Our custom scripts</li>
+			<li>CreateJs plugin</li>
+			<li>Howler Sound library</li>
+		</ol>
+		  
+		<ol>
+			<li>jQuery is a Javascript library that greatly reduces the amount of code that you must write.</li>
+			<li>The game have the following js files:
+	
+			<ul>
+				<li>CMain: the main class called by the index file. <br>This file controls the sprite_lib.js file that manages the sprite loading, the loop game and initialize the canvas with the CreateJs library</li>
+				<li>ctl_utils: this file manages the canvas resize and its centering</li>
+				<li>sprite_lib: this class loads all images declared in the main class</li>
+				<li>settings: general game settings</li>
+				<li>CCreditsPanel: this class show credits panel.</li>
+				<li>CLang: global string variables for language localization</li>
+				<li>CPreloader: simple text preloader to show resources loading progress</li>
+				<li>CMenu: simple menu with the play button</li>
+				<li>CGfxButton: this class create a standard button</li>
+				<li>CToggle: this class create a standard toggle button</li>
+				<li>CTextButton: this class create a standard text button</li>
+				<li>CGame: this class manages the game logic</li>
+				<li>CInterface: this class controls game GUI that contains text and buttons</li>
+				<li>CAreYouSurePanel: this class show are you sure panel.</li>
+				<li>CGameGoalKeeper: this class manage the goalkeer mode.</li>
+				<li>CBallKeeper: this class manage the ball in the goalkeer mode.</li>
+				<li>CGloves: this class manage the gloves movement and collision in the goalkeer mode.</li>
+				<li>CGoalGoalkeeper: this class manage the goal in the goalkeer mode.</li>
+				<li>COpponent: this class manage the opponent striker in the goalkeer mode.</li>
+				<li>CScenarioKeeper: this class manage 3d physics world in the goalkeer mode.</li>
+				<li>CBallKeeper: this class manage the ball in the striker mode.</li>
+				<li>CGameGoalKeeper: this class manage the striker mode.</li>
+				<li>CGoalKeeper: this class manage the goal keeper in the striker mode.</li>
+				<li>CGoalStriker: this class manage the goal in the striker mode.</li>
+				<li>CHandSwipeAnim: this class manage hand swipe animation.</li>
+				<li>CPlayer: this class manage player in the striker mode.</li>
+				<li>CScenarioStriker: this class manage 3d physics world in the striker mode.</li>
+				<li>CStartBall: this class manage the start ball in the striker mode.</li>
+				<li>CAreYouSurePanel: this class manage the panel used for confirmation.</li>
+				<li>CButTeam: this class manage the flag button when user select a team.</li>
+				<li>CFinalTeam: this class manage the final panel when level is over.</li>
+				<li>CHelpText: this class show help text.</li>
+				<li>CKickIcon: this class manages the kick icon in the GUI.</li>
+				<li>CLevelBut: this class manages the button in the Level Menu.</li>
+				<li>CLevelMenu: this class manages the Level Menu.</li>
+				<li>CResultPanel: this class manages the panel that is shown after the kick.</li>
+				<li>CScoreBoard: this class manages the scoreboard in the GUI.</li>
+				<li>CSelectTeamMenu: this class manages the menu of the team selection.</li>
+				<li>CTeamSettings: this class stores all the team infos.</li>
+				<li>CVersusPanel: this class manages the panel that is shown before the match</li>
+				<li>CVector2: this class manage a vector 2D.</li>
+				<li>CWinPanel: this class show a win panel.</li>
+				<li>CDetector: this class determinate if the device support WebGL</li>
+				<li>dat.gui: this class manages the analitycs of 3d.</li>
+				<li>FBXLoader: this class load fbx model and passes extracted data to cannonjs.</li>
+				<li>Stats: JavaScript Performance Monitor.</li>
+				<li>Three: javaScript 3d library which makes WebGL simpler</li>
+				<li>TrackballControls: this class allow to move camera in the 3d world</li>
+				<li>smoothie: javaScript charting library for streaming data</li>
+				<li>TransformControls: this class allow to move, rotate and scale objects in the world.</li>
+				<li>cannon: this class manages 3d physics.</li>
+				<li>cannon.demo: this class create a 3d world by threejs.</li>
+			</ul>
+			</li>
+			
+			<li>CreateJs is a suite of modular libraries and tools which work together to enable rich interactive content on open web technologies via HTML5.
+			</li>
+			
+			<li>Howler is a javascript Audio library.
+			</li>
+		</ol>
+		
+		<p>Resuming, the complete game flow is the following: </p>
+		<ol>
+			<li>The index.html file calls the CMain.js file after ready event is called</li>
+			<li>The main class calls CPreloader.js to init preloader text and start sprite loading</li>
+			<li>When all sprites contained in "/sprites" and "/sounds" folder are loaded, the main class removes the preloader and calls the CMenu.js file that shows the main menu</li>
+			<li>If the user click the Play button in main menu, the CSelectTeamMenu.js class is called if no team was previously stored, otherwise CLevelMenu.js is called</li>	
+			<li>If user click a flag in the CSelectTeamMenu menu, CLevelMenu.js is called</li>	
+			<li>If user click a flag in the CLevelMenu menu, game is started</li>
+			<li>If the user click on the exit button in the up-right corner, the game returns to the menu screen</li>	
+		</ol>		
+		
+		<hr>
+		
+		<h3 id="game_function"><strong>G) Game functions</strong> - <a href="#toc">top</a></h3>
+			In this section will be explained all the most important functions used in <strong>CGame.js</strong> file. <br><br>
+		
+		<ul>
+			<li><strong>_init()</strong> <br>
+				This function attach on the canvas some game sprites like background (oBg) and the GUI. 
+			</li>
+			<li><strong>reset()</strong> <br>
+				This function reset all game parameters when a new level must start.
+			</li>
+			<li><strong>changeScenario()</strong> <br>
+				This function swap between goalkeeper and striker mode.
+			</li>
+			<li><strong>endShotPlayer()</strong> <br>
+				This function is called after player's kick
+			</li>
+			<li><strong>endShotCpu()</strong> <br>
+				This function is called after cpu's kick
+			</li>
+			<li><strong>nextRound()</strong> <br>
+				This function is called when next level must be loaded.
+			</li>
+			<li><strong>unload()</strong> <br>
+				This function is called when user want to exit from the game.
+			</li>
+			<li><strong>update()</strong> <br>
+				This function manages the main game loop.
+			</li>
+		</ul>
+		
+		<hr>
+		
+		<h3 id="change_graphics"><strong>H) Change Graphic</strong> - <a href="#toc">top</a></h3>
+		<p>
+			You can easily change all the game graphic, replacing all the file you need in the "/sprites" folder. Just respect file format (.png or .jpg) and size if you don't want to change any code line.<br>
+		</p>
+
+		<h3 id="disable_sound"><strong>I) Disable Sounds</strong> - <a href="#toc">top</a></h3>
+		<p>If you want to disable all the sounds for mobile devices, you have to change the following value in settings.js file:</p>
+			<pre class="brush: js">var DISABLE_SOUND_MOBILE = true;</pre>
+		
+		<br><br>
+		
+		<h3 id="wp"><strong>J) Wordpress Plugin</strong> - <a href="#toc">top</a></h3>
+		<p><a href="http://codecanyon.net/item/ctl-arcade-wordpress-plugin/13856421?ref=codethislab">CTL Arcade</a> will allow you to add a real arcade on your worpress website, in this way your users will be more involved and will stay connected longer.<br><br>
+			It's possible to add Ads banner at the beginning of each game and at the end of each level. This will give you a new tool to increase your revenues.<br><br>
+			Your own users will promote your website sharing their scores on the main Social Networks, with no extra costs for you.<br><br>
+			You'll get by default the score-sharing on Twitter. To add Facebook just follow the guideline below.<br><br>
+			3 widgets can be added in your pages through a shortcode.<br>
+			<ul>
+				<li><strong>Game iframe</strong></li>
+				<li><strong>Rate the Game</strong></li>
+				<li><strong>Leaderboard</strong></li>
+			</ul>
+			Minimum Requirements:<br><br>
+			<ul>
+				<li><strong>PHP 4.3</strong></li>
+				<li><strong>WordPress 4.3.1</strong></li>
+				<li><strong>HTML5</strong></li>
+				<li><strong>Canvas</strong></li>
+				<li><strong>Javascript / jQuery</strong></li>
+			</ul>
+			
+			<strong>This plugin is designed to work only with games built by Code This Lab.</strong>
+			<br><br>
+			You can find it <a href="http://codecanyon.net/item/ctl-arcade-wordpress-plugin/13856421?ref=codethislab">here!</a> 
+			
+		</p>
+		<a href="http://codecanyon.net/item/ctl-arcade-wordpress-plugin/13856421?ref=codethislab">
+			<img src="assets/images/ctl_arcade.jpg" alt="ctl arcade" />
+		</a>
+		
+		<br><br>
+		
+		<p>Once again, thank you so much for purchasing this game. Feel free to contact us if you have any questions or issue relating to this game. No guarantees, but we'll do our best to assist.</p> 
+		
+		<p class="append-bottom alt large"><a href="http://www.codethislab.com" target="_blank"><strong>CODE THIS LAB S.R.L.</strong></a></p>
+		<p><a href="#toc">Go To Table of Contents</a></p>
+		
+		<hr class="space">
+	</div>
+	<!-- end div .container -->
+
+	<!-- Finally, to actually run the highlighter, you need to include this JS on your page -->
+	<script type="text/javascript">
+		 SyntaxHighlighter.all()
+	</script>
+</body>
+</html>
