@@ -1,0 +1,83 @@
+﻿@using GamesWay.Controllers;
+@using Microsoft.AspNetCore.Mvc.Localization;
+@using Microsoft.Extensions.Localization;
+@inject IStringLocalizer<SubscribersController> localizer;
+@{
+    Layout = "_IdentityLayout";
+}
+
+<style>
+    .parentClass {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        width: auto;
+    }
+
+    .childClass {
+        padding: 20px;
+        background-color: #f4f4f4;
+        border: 5px solid #6610f2;
+        border-radius: 10px;
+        transition: transform 0.8s ease-in-out;
+        box-shadow: 0 0 0 white;
+        animation: shine 1.5s infinite;
+        max-width: 80%; /* Adjust the width as needed */
+    }
+
+        .childClass:hover {
+            transform: scale(1.05);
+            animation: none;
+            box-shadow: 0 0 20px white;
+        }
+
+    @@keyframes shine {
+        0% {
+            box-shadow: 0 0 0 white;
+        }
+
+        50% {
+            box-shadow: 0 0 20px white;
+        }
+
+        100% {
+            box-shadow: 0 0 0 white;
+        }
+    }
+</style>
+
+<div class="parentClass">
+    <div class="col-md-8 col-lg-6 childClass">
+        <section>
+            <form asp-controller="Subscribers" asp-action="PushPinAsync" method="post">
+                <h2 style="font-weight:500;">@localizer["PortalName"]</h2>
+                @*<h5>Enjoy the most powerful mobile games.</h5>*@
+                <img src="/img/SubscribeImg.jpg" />
+                <h5>@localizer["EnterNumRecOTP"]</h5>
+                <hr />
+                @*<div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>*@
+                <div class="form-floating mb-3 col-md-12 col-lg-12">
+                    <span class="uk-form-large uk-icon" uk-icon="text" style="background: #CCC; padding-top: 2px; ">+971</span>
+                    <input class="col-md-6 col-lg-6 text-center" aria-required="true" name="msisdn" placeholder="@localizer["NumPlaceholder"]" pattern="[0-9]{9}" required title="please enter a valid mobile number 9 digits" />
+                    @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+                    {
+                        <div class="alert alert-danger">
+                            @ViewBag.ErrorMessage
+                        </div>
+                    }
+                </div>
+                <div class="col-md-12 col-lg-12">
+                    <button type="submit" class="btn btn-lg btn-primary">@localizer["LoginBtn"]</button>
+                    <a href="@Url.Action("","Home")" class="btn btn-lg btn-danger">@localizer["ExitBtn"]</a>
+                </div>
+            </form>
+        </section>
+        <hr />
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+

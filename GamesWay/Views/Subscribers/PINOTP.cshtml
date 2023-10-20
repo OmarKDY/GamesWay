@@ -1,0 +1,115 @@
+﻿@page
+@using GamesWay.Controllers;
+@using Microsoft.AspNetCore.Mvc.Localization;
+@using Microsoft.Extensions.Localization;
+@inject IStringLocalizer<SubscribersController> localizer;
+@{
+    Layout = "_IdentityLayout";
+}
+
+
+<style>
+    .parentClass {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        width: auto;
+    }
+
+    .childClass {
+        padding: 20px;
+        background-color: #f4f4f4;
+        border: 5px solid #6610f2;
+        border-radius: 10px;
+        transition: transform 0.8s ease-in-out;
+        box-shadow: 0 0 0 white;
+        animation: shine 1.5s infinite;
+        max-width: 80%; /* Adjust the width as needed */
+    }
+
+        .childClass:hover {
+            transform: scale(1.05);
+            animation: none;
+            box-shadow: 0 0 20px white;
+        }
+
+    @@keyframes shine {
+        0% {
+            box-shadow: 0 0 0 white;
+        }
+
+        50% {
+            box-shadow: 0 0 20px white;
+        }
+
+        100% {
+            box-shadow: 0 0 0 white;
+        }
+    }
+</style>
+
+
+<div class="parentClass">
+    <div class="col-md-8 col-lg-6 childClass">
+        <form  asp-controller="Subscribers" asp-action="VerifyPINAsync" method="post">
+            <h6>@localizer["MainTitle"]</h6>
+            <img src="/img/SubscribeImg.jpg" />
+            <h5 style="font-weight:400;">@localizer["PortalName"]</h5>
+            <h6>@localizer["EnterPIN"]</h6>
+            <hr />
+            @*<div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>*@
+            <div class="form-floating mb-3 col-md-12 col-lg-12">
+                <input class="col-md-6 col-lg-6 text-center" name="pin" aria-required="true" placeholder="@localizer["PINPlaceholder"]" pattern="[0-9]{4}" required title="please enter a valid otp pin 4 digits" />
+                @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+                {
+                    <div class="alert alert-danger">
+                        @ViewBag.ErrorMessage
+                    </div>
+                }
+            </div>
+
+            <button type="submit" class="btn btn-lg btn-primary">@localizer["SubBtn"]</button>
+
+            <a href="@Url.Action("","Home")" class="btn btn-lg btn-danger">@localizer["ExitBtn"]</a>
+
+            <h6>@localizer["MainTitle"]</h6>
+            <h6>@localizer["ClickSub2"]</h6>
+            <h6 style="font-weight:300;">@localizer["TermsAndCondition"]</h6>
+            <p style="font-size:small;" id="myParagraph">
+                @localizer["ClickSub"] <br />
+                <span id="additionalContent" style="display: none;">
+                    @localizer["Term1"]<br />
+                    @localizer["Term2"]<br />
+                    @localizer["Term3"]<br />
+                    @localizer["Term4"]<br />
+                    @localizer["Term5"]<br />
+                    @localizer["Term6"]<br />
+                    @localizer["Term7"] <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Terms">@localizer["PressHere"]</a>
+                </span>
+                <a href="#" id="seeMoreLink">↓</a>
+            </p>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+<script>
+    // JavaScript to toggle the visibility of the additional content
+    document.getElementById("seeMoreLink").addEventListener("click", function (event) {
+        event.preventDefault(); // Prevent the link from navigating
+
+        var additionalContent = document.getElementById("additionalContent");
+        var seeMoreLink = document.getElementById("seeMoreLink");
+
+        if (additionalContent.style.display === "none" || additionalContent.style.display === "") {
+            additionalContent.style.display = "inline"; // Show the additional content
+            seeMoreLink.textContent = "↑";
+        } else {
+            additionalContent.style.display = "none"; // Hide the additional content
+            seeMoreLink.textContent = "↓";
+        }
+    });
+</script>

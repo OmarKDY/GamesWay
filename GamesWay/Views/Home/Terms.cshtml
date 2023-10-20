@@ -1,0 +1,70 @@
+﻿@using GamesWay.Controllers;
+@using Microsoft.AspNetCore.Mvc.Localization;
+@using Microsoft.Extensions.Localization;
+@inject IStringLocalizer<HomeController> localizer;
+@{
+    Layout = "_IdentityLayout";
+}
+
+<style>
+    .parentClass {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        width: auto;
+    }
+
+    .childClass {
+        padding: 20px;
+        background-color: #f4f4f4;
+        border: 5px solid;
+        border-image: linear-gradient(to bottom right, #501755, #2d1854) 1;
+        border-radius: 10px;
+        transition: transform 0.8s ease-in-out;
+        box-shadow: 0 0 0 white;
+        animation: shine 1.5s infinite;
+    }
+
+        .childClass:hover {
+            transform: scale(1.05);
+            animation: none;
+            box-shadow: 0 0 20px white;
+        }
+
+    @@keyframes shine {
+        0% {
+            box-shadow: 0 0 0 white;
+        }
+
+        50% {
+            box-shadow: 0 0 20px white;
+        }
+
+        100% {
+            box-shadow: 0 0 0 white;
+        }
+    }
+</style>
+
+
+<div class="parentClass">
+    <div class="col-md-4 childClass">
+        <h2 style="font-weight:500;">@localizer["PortalName"]</h2>
+        <h4 style="font-weight:400;">@localizer["TermsAndCondition"]</h4>
+        <p>
+            @localizer["ClickSub"] <br />
+            @localizer["Term1"]<br />
+            <span>
+                @localizer["Term2"]<br />
+                @localizer["Term3"]<br />
+                @localizer["Term4"]<br />
+                @localizer["Term5"]<br />
+                @localizer["Term6"]<br />
+            </span>
+        </p>
+        <a href="@Url.Action("Subscribe", "Subscribers")">
+            <button type="submit" class="btn btn-lg btn-danger">Back</button>
+        </a>
+    </div>
+</div>

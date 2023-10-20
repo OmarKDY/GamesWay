@@ -1,0 +1,94 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@using Microsoft.AspNetCore.Mvc.Localization;
+@using System.Globalization;
+@inject IViewLocalizer localizer;
+<style>
+    .nav-link a:hover {
+        color: #b01ba5;
+    }
+</style>
+@{
+    var msisdn = base.Context.Session.GetString("Msisdn");
+}
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1G6HR4J7L9"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-1G6HR4J7L9');
+    </script>
+    <!-- Google Tag Manager -->
+    <script>
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-5Z5VZ8MC');</script>
+    <!-- End Google Tag Manager -->
+</head>
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5Z5VZ8MC"
+                height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <ul class="navbar-nav" style="flex-direction: row;">
+        @if (!string.IsNullOrEmpty(msisdn))
+        {
+            <form asp-controller="Subscribers" asp-action="UnSubscribeAsync" method="post">
+                <input type="hidden" name="msisdn" value="@msisdn" />
+            <li class="nav-item">
+                <button type="submit" class="btn btn-sm btn-danger">@localizer["Deactivate"]</button>
+            </li>
+            </form>
+            <form asp-controller="Subscribers" asp-action="LogoutAsync" method="post">
+                <input type="hidden" name="msisdn" value="@msisdn" />
+            <li class="nav-item">
+                <button type="submit" class="btn btn-sm btn-danger">@localizer["Logout"]</button>
+            </li>
+            </form>
+        }
+        else
+        {
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("Subscribe", "Subscribers")">@localizer["Subscribe"]</a>
+            </li>
+            <li class="nav-item" style="margin-left: 20px;">
+                <a class="nav-link" href="@Url.Action("Login", "Subscribers")">@localizer["Login"]</a>
+            </li>
+        }
+    </ul>
+</body>
+
+@*<script>
+    // Attach a click event handler to the "Deactivate" button
+    $('#deactivateButton').click(function () {
+        // Get the Msisdn from the server-side session
+        var msisdn = '@base.Context.Session.GetString("Msisdn")';
+
+        // Call the UnSubscribeAsync action with the Msisdn value
+        $.ajax({
+            url: '/Subscribers/UnSubscribeAsync', // Adjust the URL as needed
+            type: 'POST',
+            data: { msisdn: msisdn },
+            success: function (data) {
+                // Handle success if needed
+                console.log(data);
+            },
+            error: function () {
+                // Handle error if needed
+                console.error('An error occurred.');
+            }
+        });
+    });
+</script>
+*@

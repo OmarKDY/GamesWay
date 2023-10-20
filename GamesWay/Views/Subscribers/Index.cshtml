@@ -1,0 +1,63 @@
+﻿@model IEnumerable<GamesWay.Models.Subscribers>
+
+@{
+    Layout = "~/Views/Shared/_IdentityLayout.cshtml";
+}
+
+<style>
+    h1,th,td{
+        color:white;
+        font-weight:bold;
+    }
+</style>
+<h1>Subscribers <span>@ViewBag.SubscribersCount</span></h1>
+<h1>Subscribed <span>@ViewBag.IsSubscribedCount</span></h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Msisdn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PackageId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Lang)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsSubscribed)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsFreeTrial)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Msisdn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PackageId)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.Lang)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsSubscribed)
+            </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsFreeTrial)
+                </td>
+@*            <td>
+                <a asp-action="Edit" asp-route-id="@item.SubscriberId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.SubscriberId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.SubscriberId">Delete</a>
+            </td>*@
+        </tr>
+}
+    </tbody>
+</table>

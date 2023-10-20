@@ -1,0 +1,139 @@
+﻿@model IEnumerable<GamesWay.ViewModels.GamesVM>
+@{
+    ViewData["Title"] = "Games";
+}
+<style>
+	.games-section{
+		padding:158px 0;
+	}
+	.game-filter li {
+		width: auto;
+		height: auto;
+	}
+
+	@@media only screen and (max-width: 800px) {
+		#gamesContent {
+			text-align: center;
+		}
+	}
+</style>
+<body>
+	<!-- Games section -->
+	<section class="games-section">
+		<div class="container">
+			<div class="row">
+				<div style="padding-bottom: 10px;" class="col-xl-12 col-lg-12 col-md-12">
+					<div class="section-title text-white">
+					</div>
+							<div class="blog-thumb col-xl-12 col-lg-12 col-md-12">
+                        @{
+							var categoryNameImg = Context.Request.Query["categoryName"].ToString();
+							@if (string.IsNullOrWhiteSpace(categoryNameImg))
+							{
+								categoryNameImg = "Sport Games";
+							}
+							var fileName = string.Join(" ", categoryNameImg.Split()).Replace("\u00A0", " ");
+							Console.WriteLine(fileName);
+						 }
+						<img style="width:auto; height:auto;" src="/img/@(fileName).jpg">
+								</div>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<ul class="game-filter">
+				@foreach (var category in ViewBag.GamesCategory)
+				{
+					<li><a href="@Url.Action("GetGamesList", new { pageNo = 1, categoryName = category })" onclick="updateCategory('@category')">@category</a></li>
+				}
+			</ul>
+			<div class="row">
+				<div class="col-xl-12 col-lg-12 col-md-12">
+					<div class="row">
+					 @foreach (var item in Model)
+                        {
+						<div id="gamesContent" class="col-lg-3 col-md-4">
+							<div class="game-item">
+								<img style="width: 300px; height: 250px;" src="@item.Gamethumb">
+								<h5>@item.GameTitle</h5>
+									<a class="read-more check-session-button" style="color:#b01ba5; cursor:pointer;" data-gamepath="@item.GamePath">Play Game! <img src="~/img/icons/double-arrow.png" alt="#" /></a>
+								</div>
+						</div>
+						}
+					</div>
+					<div class="site-pagination">
+						@{
+							var categoryName = Context.Request.Query["categoryName"].ToString();
+							categoryName = string.Join(" ", categoryName.Split()).Replace("\u00A0", " ");
+						}
+						@for (int i = 1; i <= ViewBag.TotalPages; i++)
+						{
+							<a href="@Url.Action("GetGamesList", new { pageNo = i, categoryName = @categoryName })"
+						   @(ViewBag.PageNo == i ? "class=active" : "")>
+								@i.ToString("D2").
+							</a>
+						}
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Games end-->
+	@section scripts{
+		<script>
+			function updateCategory(categoryName) {
+				debugger
+				var links = document.getElementsByTagName('a');
+				for (var i = 0; i < links.length; i++) {
+					var href = links[i].getAttribute('href');
+					if (href.includes('GetGamesList')) {
+						links[i].setAttribute('href', href.replace(/categoryName=[^&]*/, 'categoryName=' + categoryName));
+					}
+				}
+			}
+			$(document).ready(function () {
+				$('.check-session-button').click(function (e) {
+					e.preventDefault(); // Prevent the default click behavior
+
+					// Get the GamePath value from the data attribute
+					var gamePath = $(this).data('gamepath');
+
+					// Check the session and redirect accordingly
+					checkSessionAndRedirect(gamePath);
+				});
+			});
+
+			function checkSessionAndRedirect(gamePath) {
+				$.ajax({
+					url: '/Subscribers/CheckSession', // Endpoint to check session status
+					type: 'GET',
+					success: function (data) {
+						if (data.sessionValid) {
+							// Session is valid, load the GamePage dynamically
+							$.ajax({
+								url: '/Home/GamePage', // URL of the GamePagePartial action
+								type: 'GET',
+								data: { gamePath: gamePath }, // Pass gamePath as a parameter
+								success: function (content) {
+									// Inject the content into the gameContainer div
+									$('#gameContainer').html(content);
+									var gameViewUrl = '/Home/GamePage?gamePath=' + encodeURIComponent(gamePath);
+									window.open(gameViewUrl, '_blank');
+								},
+								error: function () {
+									// Handle AJAX error
+								}
+							});
+						} else {
+							// Session is not valid, redirect to the subscribe page
+							window.location.href = '/Subscribers/Subscribe';
+						}
+					},
+					error: function () {
+						// Handle AJAX error
+					}
+				});
+			}
+		</script>
+	}
+	</body>
