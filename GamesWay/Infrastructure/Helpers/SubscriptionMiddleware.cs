@@ -21,7 +21,7 @@ namespace GamesWay.Infrastructure.Helpers
                 context.Session.TryGetValue("EndOfSubscription", out byte[] endOfSubscriptionData))
             {
                 string msisdn = context.Session.GetString("Msisdn");
-                string sessionId = context.Session.GetString("SessionId");
+                //string sessionId = context.Session.GetString("SessionId");
 
                 bool isSubscribed = BitConverter.ToBoolean(isSubscribedData, 0);
                 string endOfSubscriptionString = Encoding.UTF8.GetString(endOfSubscriptionData);
@@ -29,7 +29,7 @@ namespace GamesWay.Infrastructure.Helpers
                     .Where(x => x.Msisdn == msisdn)
                     .OrderByDescending(x => x.LoginTime)
                     .FirstOrDefaultAsync();
-                if (!isSubscribed || !DateTime.TryParse(endOfSubscriptionString, out DateTime endOfSubscription) || endOfSubscription <= DateTime.Now || existingSession.IsActive == false || existingSession.SessionId.ToString() != sessionId)
+                if (!isSubscribed || !DateTime.TryParse(endOfSubscriptionString, out DateTime endOfSubscription) || endOfSubscription <= DateTime.Now/* || existingSession.IsActive == false || existingSession.SessionId.ToString() != sessionId*/)
                 {
                     var subscriber = await applicationContext.Subscribers.FirstOrDefaultAsync(x => x.Msisdn == msisdn);
                     subscriber.IsSubscribed = false;

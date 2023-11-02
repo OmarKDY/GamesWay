@@ -44,7 +44,7 @@ namespace GamesWay.Controllers
 				if (HttpContext.Session != null)
 				{
 					string isSubscribed = HttpContext.Session.GetString("IsSubscribed");
-                    string sessionId = HttpContext.Session.GetString("SessionId");
+                    //string sessionId = HttpContext.Session.GetString("SessionId");
                     string endSubscriptionDate = HttpContext.Session.GetString("EndOfSubscription");
                     string msisdn = HttpContext.Session.GetString("Msisdn");
                     var existingSession = await _context.LogSessions

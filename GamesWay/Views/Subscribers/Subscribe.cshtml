@@ -55,7 +55,7 @@
         <form asp-controller="Subscribers" asp-action="PushPINAsync" method="post">
             <h6>@localizer["MainTitle"]</h6>
             <img src="/img/SubscribeImg.jpg" />
-            <h5 style="font-weight:500;">@localizer["PortalName"]</h5>
+            <h6 style="font-weight:500;">@localizer["PortalName"]</h6>
             <h6>@localizer["EnterNumRecOTP"]</h6>
             <hr />
             @*<div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>*@
@@ -76,10 +76,10 @@
 
             <h6>@localizer["MainTitle"]</h6>
             <h6>@localizer["PIN"]</h6>
-            <h6 style="font-weight:400;">@localizer["TermsAndCondition"]</h6>
-            <p style="font-size:small;" id="myParagraph">
+            <h6 style="font-weight:200;">@localizer["TermsAndCondition"]</h6>
+            <p style="font-size:x-small;">
                 @localizer["ClickSub"] <br />
-                <span id="additionalContent" style="display: none;">
+                <span>
                     @localizer["Term1"]<br />
                      @localizer["Term2"]<br />
                      @localizer["Term3"]<br />
@@ -88,7 +88,7 @@
                      @localizer["Term6"]<br />
                      @localizer["Term7"] <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Terms">@localizer["PressHere"]</a>
                 </span>
-                <a href="#" id="seeMoreLink">↓</a>
+                @*<a href="#" id="seeMoreLink">↓</a>*@
             </p>
         </form>
     </div>
@@ -97,7 +97,7 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
-<script>
+@*<script>
     // JavaScript to toggle the visibility of the additional content
     document.getElementById("seeMoreLink").addEventListener("click", function (event) {
         event.preventDefault(); // Prevent the link from navigating
@@ -113,4 +113,4 @@
             seeMoreLink.textContent = "↓";
         }
     });
-</script>
+</script>*@

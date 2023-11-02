@@ -52,16 +52,16 @@
     <div class="col-md-4 childClass">
         <h2 style="font-weight:500;">@localizer["PortalName"]</h2>
         <h4 style="font-weight:400;">@localizer["TermsAndCondition"]</h4>
-        <p>
-            @localizer["ClickSub"] <br />
-            @localizer["Term1"]<br />
+        <p style="font-size:x-small;">
             <span>
+                @localizer["Term1"]<br />
                 @localizer["Term2"]<br />
                 @localizer["Term3"]<br />
                 @localizer["Term4"]<br />
                 @localizer["Term5"]<br />
                 @localizer["Term6"]<br />
             </span>
+            @*<a href="#" id="seeMoreLink">↓</a>*@
         </p>
         <a href="@Url.Action("Subscribe", "Subscribers")">
             <button type="submit" class="btn btn-lg btn-danger">Back</button>
