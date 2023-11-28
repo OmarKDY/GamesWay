@@ -1,0 +1,94 @@
+﻿@model IEnumerable<GamesWay.Models.Transactions>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_IdentityLayout.cshtml";
+}
+<style>
+    h1, th, td {
+        color: white;
+        font-weight: bold;
+    }
+</style>
+@*<p>
+    <a asp-action="Create">Create New</a>
+</p>*@
+@{
+    int RowNo = 0;
+    decimal totalPackageAmount = 0;
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Subscriber.Msisdn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TransactionId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TransactionType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PackageAmount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateOfSubscription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndOfSubscription)
+            </th>
+@*            <th>
+                @Html.DisplayNameFor(model => model.Channel)
+            </th>*@
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td style="width: 3px;">
+                    @{
+                        RowNo++;
+                    }
+                    @RowNo
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Subscriber.Msisdn)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TransactionId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TransactionType)
+                </td>
+                <td>
+                    @{
+                        decimal dividedAmount = (decimal)item.PackageAmount / 100;
+                        totalPackageAmount += dividedAmount;
+                    }
+
+                    @Html.DisplayFor(modelItem => dividedAmount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateOfSubscription)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndOfSubscription)
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.TransactionId">Details</a>
+                </td>
+            </tr>
+        }
+
+        <tr>
+            <td colspan="4"></td>
+            <td>Total: @totalPackageAmount</td>
+            <td colspan="3"></td>
+        </tr>
+    </tbody>
+</table>

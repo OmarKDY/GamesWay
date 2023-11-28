@@ -151,7 +151,7 @@
     <value>Low balance to recharge</value>
   </data>
   <data name="MainTitle" xml:space="preserve">
-    <value>Free for 24 hours then AED 3.25/ day or AED 11/ week (VAT Inclusive)</value>
+    <value>Free for 24 hours then AED 3.25/ day (VAT Inclusive)</value>
   </data>
   <data name="NumPlaceholder" xml:space="preserve">
     <value>Enter Your Mobile Number</value>

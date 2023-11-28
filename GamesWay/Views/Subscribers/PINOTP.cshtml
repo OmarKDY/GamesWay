@@ -67,9 +67,20 @@
                         @ViewBag.ErrorMessage
                     </div>
                 }
+                @{
+                    var otpBtn = "";
+                    if ((string)TempData["OtpBtn"] == "LoginBtn")
+                        {
+                        otpBtn = "LoginBtn";
+                    }
+                    else
+                    {
+                        otpBtn = "SubBtn";
+                    }
+                }
             </div>
 
-            <button type="submit" class="btn btn-lg btn-primary">@localizer["SubBtn"]</button>
+            <button type="submit" class="btn btn-lg btn-primary">@localizer[otpBtn]</button>
 
             <a href="@Url.Action("","Home")" class="btn btn-lg btn-danger">@localizer["ExitBtn"]</a>
 

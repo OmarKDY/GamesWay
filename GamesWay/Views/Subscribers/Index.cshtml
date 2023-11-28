@@ -12,19 +12,24 @@
 </style>
 <h1>Subscribers <span>@ViewBag.SubscribersCount</span></h1>
 <h1>Subscribed <span>@ViewBag.IsSubscribedCount</span></h1>
+@{
+    int RowNo = 0;
+}
 
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Msisdn)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Msisdn)
+            </th>
+@*            <th>
                 @Html.DisplayNameFor(model => model.PackageId)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Lang)
-            </th>
+            </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.IsSubscribed)
             </th>
@@ -37,15 +42,20 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
+                <td style="width: 3px;">
+                    @{
+                        RowNo++;
+                    } @RowNo
+                </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Msisdn)
             </td>
-            <td>
+@*            <td>
                 @Html.DisplayFor(modelItem => item.PackageId)
             </td>
             <td>
                     @Html.DisplayFor(modelItem => item.Lang)
-            </td>
+            </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.IsSubscribed)
             </td>

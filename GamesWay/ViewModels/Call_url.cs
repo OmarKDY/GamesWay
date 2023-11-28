@@ -10,7 +10,7 @@ namespace GamesWay.ViewModels
         public string TransactionType { get; set; }
         public string Amount { get; set; }
         public string? channel { get; set; }
-        public string transaction_id { get; set; }
+        public string transaction_id1 { get; set; }
         public string? transaction_id2 { get; set; }
     }
 }

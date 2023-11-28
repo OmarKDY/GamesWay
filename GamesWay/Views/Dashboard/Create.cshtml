@@ -1,0 +1,68 @@
+﻿@model GamesWay.Models.Transactions
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_IdentityLayout.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>Transactions</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="TransactionId" class="control-label"></label>
+                <input asp-for="TransactionId" class="form-control" />
+                <span asp-validation-for="TransactionId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TransactionId2" class="control-label"></label>
+                <input asp-for="TransactionId2" class="form-control" />
+                <span asp-validation-for="TransactionId2" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TransactionType" class="control-label"></label>
+                <input asp-for="TransactionType" class="form-control" />
+                <span asp-validation-for="TransactionType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PackageAmount" class="control-label"></label>
+                <input asp-for="PackageAmount" class="form-control" />
+                <span asp-validation-for="PackageAmount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateOfSubscription" class="control-label"></label>
+                <input asp-for="DateOfSubscription" class="form-control" />
+                <span asp-validation-for="DateOfSubscription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EndOfSubscription" class="control-label"></label>
+                <input asp-for="EndOfSubscription" class="form-control" />
+                <span asp-validation-for="EndOfSubscription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Channel" class="control-label"></label>
+                <input asp-for="Channel" class="form-control" />
+                <span asp-validation-for="Channel" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SubscriberId" class="control-label"></label>
+                <select asp-for="SubscriberId" class ="form-control" asp-items="ViewBag.SubscriberId"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

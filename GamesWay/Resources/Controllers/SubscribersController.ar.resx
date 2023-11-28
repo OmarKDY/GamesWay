@@ -151,7 +151,7 @@
     <value>رصيدكم لا يسمح بالاشتراك في الخدمه</value>
   </data>
   <data name="MainTitle" xml:space="preserve">
-    <value>فترة مجانية لمدة 24 ساعة، ثم 3.25 درهم/يوم أو 11 درهم/أسبوع (شاملة للضريبة المضافة)</value>
+    <value>فترة مجانية لمدة 24 ساعة، ثم 3.25 درهم/يوم (شاملة للضريبة المضافة)</value>
   </data>
   <data name="NumPlaceholder" xml:space="preserve">
     <value>أدخل رقم الهاتف الخاص بك</value>

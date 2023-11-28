@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using System.Resources;
 using GamesWay.ViewModels;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 namespace GamesWay.Controllers
 {
@@ -17,22 +18,22 @@ namespace GamesWay.Controllers
     {
         //Full Credintials================================
         //SUBSCRIPTION CREDINTIALS
-        string Subuser = "Mobisofttest";
-		string Subpassword = "mobit68732@k09";
-		string SubClientId = "Mobisofttest";
-        string SubencryptionKey = "DHDUFYlinsGDDSSs";
+        string Subuser = "Ertibat";
+		string Subpassword = "AKde789wwsSWREWE";
+		string SubClientId = "Ertibat";
+        string SubencryptionKey = "DHDUFY9632ASedbu";
 
         //UNSUBSCRIPTION CREDINTIALS
-        string UnSubuser = "MobiSoftDeAP";
-        string UnSubpassword = "LxEtyMl9876Zl29418";
-        string UnSubClientId = "MobiSoftDeAP";
-        string UnSubencryptionKey = "NJIS9cWYUN67nbwk";
+        string UnSubuser = "Ertibat";
+        string UnSubpassword = "WEDcte7128912ew2336";
+        string UnSubClientId = "Ertibat";
+        string UnSubencryptionKey = "NJIS9c632WEDcvtq";
 
         //SMS Push CREDINTIALS
-        string SMSuser = "EtisalatTesting1111";
-        string SMSpassword = "ADHdyq84362adh1912";
-        string SMSClientId = "EtisalatTesting1111";
-        string SMSencryptionKey = "DGDUFYlinsGDDTch";
+        string SMSuser = "ErtiBat";
+        string SMSpassword = "AErfdjhie8912ewWQE";
+        string SMSClientId = "ErtiBat";
+        string SMSencryptionKey = "NJIS9cQWED785239";
         //================================================
 
         private readonly ApplicationDbContext _context;
@@ -113,6 +114,7 @@ namespace GamesWay.Controllers
                         var serializedPinObj = JsonConvert.SerializeObject(pinObj);
                         TempData["PINOBJ"] = serializedPinObj;
                         TempData["MSISDN"] = msisdn;
+                        TempData["OtpBtn"] = "LoginBtn";
                     return RedirectToAction("PINOTP", "Subscribers");
                     }
                 else
@@ -137,6 +139,7 @@ namespace GamesWay.Controllers
                 // Deserialize the JSON string into your object type
                 VerifyPINObject pushPINObj = JsonConvert.DeserializeObject<VerifyPINObject>(jsonData);
                 string decryptedmsisdn = await EncryptionHelpers.DecryptAsync(pushPINObj.msisdn, SubencryptionKey);
+                //string decryptedtxnid = await EncryptionHelpers.DecryptAsync(pushPINObj.txnid, SubencryptionKey); Problem
 
                 encryptedPIN = await EncryptionHelpers.EncryptFieldAsync(pin, SubencryptionKey);
 
@@ -185,11 +188,22 @@ namespace GamesWay.Controllers
                             PinMSG = $"Dear Customer, Welcome to GamesWay service. You can access your account and enjoy the service by visiting: https://games-way.com/Subscribers/LoginURL?msisdn={resultMsisdn}, For Terms & Conditions, https://games-way.com/Home/Terms",
                             ExpPinDate = DateTime.Now
                         };
-                            //string resultMsisdn = decryptedmsisdn.Substring(prefixToRemove.Length);
-                            await Task.Delay(2000);
-                            await Login(resultMsisdn);
+                            //object addSubscriberRequestBody = new
+                            //{
+                            //    Msisdn = decryptedmsisdn,
+                            //    PackageId = "2195",
+                            //    TransactionType = "SUB",
+                            //    Amount = 0,
+                            //    Channel = "WEB",
+                            //    TransactionId = decryptedtxnid,
+                            //    TransactionId2 = ""
+                            //};
+                            await Task.Delay(10000);
                             await PushContentAsync(decryptedmsisdn, msgObj, pushPINObj.txnid);
+                            //await AddSubscriberAsync(addSubscriberRequestBody);
+                            await Login(resultMsisdn);
                             TempData.Remove("PushPINObj");
+                            TempData.Remove("OtpBtn");
                             return RedirectToAction("GetGamesList", "Home");
                         }
                     }
@@ -373,17 +387,24 @@ namespace GamesWay.Controllers
                             TransactionType = Call_url.TransactionType,
                             Amount = Call_url.Amount,
                             Channel = Call_url.channel,
-                            TransactionId = Call_url.transaction_id,
+                            TransactionId = Call_url.transaction_id1,
                             TransactionId2 = Call_url.transaction_id2
                         };
-                        await AddSubscriberAsync(requestBody);
-                        return StatusCode(StatusCodes.Status200OK);
+                        var result = await AddSubscriberAsync(requestBody);
+                        if (result is OkObjectResult)
+                        {
+                            return Ok("Success");
+                        }
+                        else
+                        {
+                            return BadRequest("Duplicated Transaction Id");
+                        }
                     }
                 }
             }
 
             // If the credentials are invalid or don't match, return a 403 Forbidden response
-            return StatusCode(StatusCodes.Status403Forbidden);
+            return BadRequest("Invalid Authorization");
         }
 
         //UnSubscribe Endpoint
@@ -429,14 +450,14 @@ namespace GamesWay.Controllers
                 // Check if the response message is "SUCCESS"
                 if (responseObject.message == "UNSUBSCRIPTION SUCCESSFUL")
                 {
-                    var existingSession = await _context.LogSessions
-                        .Where(x => x.Msisdn == msisdn)
-                        .OrderByDescending(x => x.LoginTime)
-                        .FirstOrDefaultAsync();
+                    //var existingSession = await _context.LogSessions
+                    //    .Where(x => x.Msisdn == msisdn)
+                    //    .OrderByDescending(x => x.LoginTime)
+                    //    .FirstOrDefaultAsync();
                     HttpContext.Session.Clear();
-                    existingSession.IsActive = false;
-                    _context.Entry(existingSession).State = EntityState.Modified;
-                    await _context.SaveChangesAsync();
+                    //existingSession.IsActive = false;
+                    //_context.Entry(existingSession).State = EntityState.Modified;
+                    //await _context.SaveChangesAsync();
                     return RedirectToAction("", "Home");
                 }
             }
@@ -449,16 +470,16 @@ namespace GamesWay.Controllers
             if (msisdn != null)
             {
                 var subscriber = await _context.Subscribers.FirstOrDefaultAsync(x => x.Msisdn == msisdn);
-                var existingSession = await _context.LogSessions
-                    .Where(x => x.Msisdn == msisdn)
-                    .OrderByDescending(x => x.LoginTime)
-                    .FirstOrDefaultAsync();
+                //var existingSession = await _context.LogSessions
+                //    .Where(x => x.Msisdn == msisdn)
+                //    .OrderByDescending(x => x.LoginTime)
+                //    .FirstOrDefaultAsync();
                 if (subscriber != null)
                 {
                     HttpContext.Session.Clear();
-                    existingSession.IsActive = false;
-                    _context.Entry(existingSession).State = EntityState.Modified;
-                    await _context.SaveChangesAsync();
+                    //existingSession.IsActive = false;
+                    //_context.Entry(existingSession).State = EntityState.Modified;
+                    //await _context.SaveChangesAsync();
                     return RedirectToAction("", "Home");
                 }
             }
@@ -629,9 +650,12 @@ namespace GamesWay.Controllers
         {
             return _context.Subscribers?.Any(e => e.Msisdn == Msisdn) ?? false;
         }
-
+        private bool TransactionIdExists(string transactionId)
+        {
+            return _context.Transactions?.Any(e => e.TransactionId == transactionId) ?? false;
+        }
         // AddSubscriber Endpoint
-        private async Task AddSubscriberAsync(object data)
+        private async Task<IActionResult> AddSubscriberAsync(object data)
         {
             var acceptLanguageHeader = HttpContext?.Request.Headers["Accept-Language"];
             var userLanguage = acceptLanguageHeader.ToString().Split(',')[0];
@@ -644,41 +668,43 @@ namespace GamesWay.Controllers
 				.Include(s => s.Transactions) // Include transactions
 				.FirstOrDefaultAsync(x => x.Msisdn == msisdn);
 
+            if (!TransactionIdExists(transactionId))
+            {
+                if (existingSubscriber != null)
+                {
+                    // Get the latest transaction associated with the subscriber
+                    //var latestTransaction = existingSubscriber.Transactions.OrderByDescending(t => t.DateOfSubscription).FirstOrDefault();
 
-			if (existingSubscriber != null)
-			{
-                // Get the latest transaction associated with the subscriber
-                //var latestTransaction = existingSubscriber.Transactions.OrderByDescending(t => t.DateOfSubscription).FirstOrDefault();
-
-                //if (latestTransaction != null)
-                //{
+                    //if (latestTransaction != null)
+                    //{
                     DateTime currentDate = DateTime.Now;
 
                     // Check if the latest transaction's subscription has expired
                     //if (DateTime.TryParse(latestTransaction.EndOfSubscription, out DateTime endOfSubscription) && endOfSubscription <= currentDate)
                     //{
-                        // Subscriber's latest transaction subscription has expired, so add a new transaction
-                        DateTime dateOfSubscription = currentDate;
-                        TimeSpan subscriptionDuration = TimeSpan.FromHours(24);
-                        DateTime newEndOfSubscription = dateOfSubscription.Add(subscriptionDuration);
-                        int packageAmount = Convert.ToInt32(GetPropertyValue<string>(data, "Amount"));
-                        Transactions newTransaction = new Transactions
-                        {
-                            TransactionId = transactionId.ToString(), // Assuming TransactionId is a string
-                            TransactionId2 = GetPropertyValue<string>(data, "TransactionId2"),
-                            TransactionType = GetPropertyValue<string>(data, "TransactionType"),
-                            PackageAmount = packageAmount,
-                            DateOfSubscription = dateOfSubscription.ToString("yyyy-MM-ddTHH:mm:ss.fff"),
-                            EndOfSubscription = newEndOfSubscription.ToString("yyyy-MM-ddTHH:mm:ss.fff"),
-                            Channel = GetPropertyValue<string>(data, "Channel"),
-                            SubscriberId = existingSubscriber.SubscriberId // Link transaction to the subscriber
-                        };
-                        existingSubscriber.IsSubscribed = true;
-                        existingSubscriber.IsFreeTrial = false;
-                        _context.Transactions.Add(newTransaction);
-                        await _context.SaveChangesAsync();
+                    // Subscriber's latest transaction subscription has expired, so add a new transaction
+                    DateTime dateOfSubscription = currentDate;
+                    TimeSpan subscriptionDuration = TimeSpan.FromHours(24);
+                    DateTime newEndOfSubscription = dateOfSubscription.Add(subscriptionDuration);
+                    int packageAmount = Convert.ToInt32(GetPropertyValue<string>(data, "Amount"));
+                    Transactions newTransaction = new Transactions
+                    {
+                        TransactionId = transactionId.ToString(), // Assuming TransactionId is a string
+                        TransactionId2 = GetPropertyValue<string>(data, "TransactionId2"),
+                        TransactionType = GetPropertyValue<string>(data, "TransactionType"),
+                        PackageAmount = packageAmount,
+                        DateOfSubscription = dateOfSubscription.ToString("yyyy-MM-ddTHH:mm:ss.fff"),
+                        EndOfSubscription = newEndOfSubscription.ToString("yyyy-MM-ddTHH:mm:ss.fff"),
+                        Channel = GetPropertyValue<string>(data, "Channel"),
+                        SubscriberId = existingSubscriber.SubscriberId // Link transaction to the subscriber
+                    };
+                    existingSubscriber.IsSubscribed = true;
+                    existingSubscriber.IsFreeTrial = false;
+                    _context.Transactions.Add(newTransaction);
+                    await _context.SaveChangesAsync();
+                    return Ok("Success");
                     //}
-                //}
+                    //}
                 }
                 else
                 {
@@ -721,7 +747,10 @@ namespace GamesWay.Controllers
                     // Add the new subscriber and transaction to the database
                     _context.Subscribers.Add(newSubscriber);
                     await _context.SaveChangesAsync();
+                    return Ok("Success");
                 }
+            }
+                 return BadRequest("Duplicated Transaction Id");
         }
 
         private static T GetPropertyValue<T>(object obj, string propertyName)
