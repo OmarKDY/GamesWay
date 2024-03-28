@@ -32,7 +32,8 @@ builder.Services.AddSession(options =>
 });
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
-
+builder.Services.AddScoped<DMHelpers>();
+builder.Services.AddHttpClient();
 builder.Services.AddControllers()
     .AddXmlSerializerFormatters()
     .AddJsonOptions(options =>
@@ -59,7 +60,8 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
 });
 
 var app = builder.Build();
-
+var loggerFactory = app.Services.GetService<ILoggerFactory>();
+loggerFactory.AddFile(builder.Configuration["Logging:LogFilePath"].ToString());
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

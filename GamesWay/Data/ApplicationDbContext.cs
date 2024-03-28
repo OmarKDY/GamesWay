@@ -33,5 +33,6 @@ namespace GamesWay.Data
         public DbSet<Subscribers> Subscribers { get; set; } = default!;
         public DbSet<Transactions> Transactions { get; set; } = default!;
         public DbSet<LogSessions> LogSessions { get; set; } = default!;
+        public DbSet<UserAttmp> UserAttmp { get; set; } = default!;
     }
 }

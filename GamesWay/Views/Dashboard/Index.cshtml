@@ -1,19 +1,164 @@
-﻿@model IEnumerable<GamesWay.Models.Transactions>
-
+﻿@model GamesWay.Models.Transactions
 @{
-    ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_IdentityLayout.cshtml";
 }
+<style>
+    .counter{
+    color: #628900;
+    background: linear-gradient(to bottom, #628900 49%, transparent 50%);
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+    width: 200px;
+    height: 200px;
+    padding: 25px 15px 35px;
+    margin: 0 auto;
+    border: 18px solid #628900;
+    border-radius: 100% 100%;
+    box-shadow: inset 0 8px 10px rgba(0, 0, 0, 0.3);
+}
+.counter .counter-value{
+    color: #fff;
+    font-size: 35px;
+    font-weight: 600;
+    display: block;
+    margin: 0 0 25px;
+}
+.counter h3{
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin: 0;
+}
+.counter.red{
+    color: #e3213c;
+    background: linear-gradient(to bottom, #e3213c 49%, transparent 50%);
+    border-color: #e3213c;
+}
+.counter.orange{
+    color: #fb8603;
+    background: linear-gradient(to bottom, #fb8603 49%, transparent 50%);
+    border-color: #fb8603;
+}
+.counter.blue{
+    color: #1f8bc1;
+    background: linear-gradient(to bottom, #1f8bc1 49%, transparent 50%);
+    border-color: #1f8bc1;
+}
+.counter.black {
+    color:white;
+    background: linear-gradient(to bottom, black 49%, transparent 50%);
+    border-color: black;
+}
+@@media screen and (max-width:990px) {
+    .counter{ margin-bottom: 40px; }
+}
+
+    h2, th, td {
+        color: white;
+        font-weight: bold;
+    }
+</style>
+@{
+    List<dynamic> topRenewableSubscribers = ViewBag.TopRenewableSubscribers;
+}
+<div class="row justify-content-center">
+    <div class="col-md-6 text-center mb-4">
+        <form asp-action="Index" method="get">
+            <div class="form-group">
+                <label for="selectedDate">Select Date:</label>
+                <input type="date" id="selectedDate" name="selectedDate" class="form-control" />
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-2 col-sm-6">
+            <div class="counter">
+                <span class="counter-value">@ViewBag.SubscribersCount</span>
+                <h3>Subscribers</h3>
+            </div>
+        </div>
+        <div class="col-md-2 col-sm-6">
+            <div class="counter blue">
+                <span class="counter-value">@ViewBag.IsSubscribedCount</span>
+                <h3>Renewals!</h3>
+            </div>
+        </div>
+        <div class="col-md-2 col-sm-6">
+            <div class="counter black">
+                <span class="counter-value">@ViewBag.UASR</span>
+                <h3>% UASR</h3>
+            </div>
+        </div>
+        <div class="col-md-2 col-sm-6">
+            <div class="counter red">
+                <span class="counter-value">@ViewBag.UnSubUsersCount</span>
+                <h3>UnSubscribers</h3>
+            </div>
+        </div>
+        <div class="col-md-2 col-sm-6">
+            <div class="counter orange">
+                <span class="counter-value">@ViewBag.TotalPackageAmount</span>
+                <h3>AED Package Amount</h3>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <h2 class="text-center">Top Renewable Subscribers</h2>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <table class="table table-striped table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Msisdn</th>
+                        <th scope="col">Renewal Count</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var subscriber in topRenewableSubscribers)
+                    {
+                        <tr>
+                            <td>@subscriber.Msisdn</td>
+                            <td>@subscriber.RenewalCount</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.counter-value').each(function () {
+            $(this).prop('Counter', 0).animate({
+                Counter: $(this).text()
+            }, {
+                duration: 3500,
+                easing: 'swing',
+                step: function (now) {
+                    $(this).text(Math.ceil(now));
+                }
+            });
+        });
+    });
+</script>
+
+@*@
 <style>
     h1, th, td {
         color: white;
         font-weight: bold;
     }
-</style>
+</style>*@
 @*<p>
     <a asp-action="Create">Create New</a>
 </p>*@
-@{
+@*@{
     int RowNo = 0;
     decimal totalPackageAmount = 0;
 }
@@ -40,10 +185,10 @@
             <th>
                 @Html.DisplayNameFor(model => model.EndOfSubscription)
             </th>
-@*            <th>
+*@@*            <th>
                 @Html.DisplayNameFor(model => model.Channel)
             </th>*@
-            <th></th>
+@*            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -91,4 +236,4 @@
             <td colspan="3"></td>
         </tr>
     </tbody>
-</table>
+</table>*@

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using GamesWay.Data;
 using GamesWay.Models;
@@ -39,17 +40,19 @@ namespace GamesWay.Controllers
         private readonly ApplicationDbContext _context;
         private readonly HttpClient _httpClient;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly ILogger<SubscribersController> _logger;
         private const string ExpectedUsername = "Serv1ceUsern@me04";
         private const string ExpectedPassword = "Ert1b@tTechnolog1es04";
         string packageId = "2195";
         string encryptedPIN = "";
         string MsisdnCheck = "";
 
-        public SubscribersController(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor)
+        public SubscribersController(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor, ILogger<SubscribersController> logger)
         {
             _httpClient = new HttpClient();
             _context = context;
             _httpContextAccessor = httpContextAccessor;
+            _logger = logger;
         }
 
         //PushPIN Endpoint
@@ -58,9 +61,6 @@ namespace GamesWay.Controllers
         {
             //Msisdn Check
             MsisdnCheck = $"971{msisdn}";
-            //if (!MsisdnExists(MsisdnCheck))
-            //{
-                // Encrypt sensitive data
                 (string encryptedUser, string encryptedPassword, string encryptedPackageId, string encryptedMsisdn) = await EncryptionHelpers.EncryptFieldsAsync(Subuser, Subpassword, packageId, MsisdnCheck, SubencryptionKey);
 
                 Guid txnidGuid = Guid.NewGuid();
@@ -104,21 +104,70 @@ namespace GamesWay.Controllers
                         string tokenValue = responseObject.token;
                         requestBody.Add("token", tokenValue);
                         string json = JsonConvert.SerializeObject(requestBody);
+                        var userAttmp = new UserAttmp
+                        {
+                            txnid = requestBody["txnid"],
+                            msisdn = MsisdnCheck,
+                            responsemsg = responseObject.message,
+                            packageId = requestBody["packageId"],
+                            password = requestBody["password"],
+                            user = requestBody["user"],
+                            token = requestBody["token"],
+                            sourceIP = requestBody["sourceIP"],
+                            agency = "GamesWay",
+                            DateOfAttmp = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss.fff"),
+                            serializeobj = json
+                        };
+                        _context.UserAttmp.Add(userAttmp);
+                        await _context.SaveChangesAsync();
                         TempData["PushPINObj"] = json;
-                        return RedirectToAction("PINOTP", "Subscribers");
+                        TempData["CanAccessPageFlag"] = true;
+                    return RedirectToAction("PINOTP", "Subscribers");
                     }
                     else if (responseObject.message == "ALREADY SUB")
                     {
                         GenPinModel pinObj = await GeneratePINSMS(msisdn);
                         await PushContentAsync(MsisdnCheck, pinObj, "");
                         var serializedPinObj = JsonConvert.SerializeObject(pinObj);
+                        var userAttmp = new UserAttmp
+                        {
+                            txnid = requestBody["txnid"],
+                            msisdn = MsisdnCheck,
+                            responsemsg = responseObject.message,
+                            packageId = requestBody["packageId"],
+                            password = requestBody["password"],
+                            user = requestBody["user"],
+                            sourceIP = requestBody["sourceIP"],
+                            agency = "GamesWay",
+                            DateOfAttmp = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss.fff"),
+                            serializeobj = serializedPinObj
+                        };
+                        _context.UserAttmp.Add(userAttmp);
+                        await _context.SaveChangesAsync();
                         TempData["PINOBJ"] = serializedPinObj;
                         TempData["MSISDN"] = msisdn;
                         TempData["OtpBtn"] = "LoginBtn";
-                    return RedirectToAction("PINOTP", "Subscribers");
+                        TempData["CanAccessPageFlag"] = true;
+                        return RedirectToAction("PINOTP", "Subscribers");
                     }
                 else
                 {
+                    var json = JsonConvert.SerializeObject(requestBody);
+                    var userAttmp = new UserAttmp
+                    {
+                        txnid = requestBody["txnid"],
+                        msisdn = MsisdnCheck,
+                        responsemsg = responseObject.message,
+                        packageId = requestBody["packageId"],
+                        password = requestBody["password"],
+                        user = requestBody["user"],
+                        sourceIP = requestBody["sourceIP"],
+                        agency = "GamesWay",
+                        DateOfAttmp = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss.fff"),
+                        serializeobj = json
+                    };
+                    _context.UserAttmp.Add(userAttmp);
+                    await _context.SaveChangesAsync();
                     ViewBag.ErrorMessage = responseObject.message;
                     return View("Subscribe"); //change it to returnURL-----------------------
                 }
@@ -183,28 +232,18 @@ namespace GamesWay.Controllers
                         if (decryptedmsisdn.StartsWith(prefixToRemove))
                         {
                             string resultMsisdn = decryptedmsisdn.Substring(prefixToRemove.Length);
-                            GenPinModel msgObj = new GenPinModel
-                        {
-                            PinMSG = $"Dear Customer, Welcome to GamesWay service. You can access your account and enjoy the service by visiting: https://games-way.com/Subscribers/LoginURL?msisdn={resultMsisdn}, For Terms & Conditions, https://games-way.com/Home/Terms",
-                            ExpPinDate = DateTime.Now
-                        };
-                            //object addSubscriberRequestBody = new
-                            //{
-                            //    Msisdn = decryptedmsisdn,
-                            //    PackageId = "2195",
-                            //    TransactionType = "SUB",
-                            //    Amount = 0,
-                            //    Channel = "WEB",
-                            //    TransactionId = decryptedtxnid,
-                            //    TransactionId2 = ""
-                            //};
-                            await Task.Delay(10000);
-                            await PushContentAsync(decryptedmsisdn, msgObj, pushPINObj.txnid);
-                            //await AddSubscriberAsync(addSubscriberRequestBody);
+                        //    GenPinModel msgObj = new GenPinModel
+                        //{
+                        //    PinMSG = $"Dear Customer, Welcome to GamesWay service. You can access your account and enjoy the service by visiting: https://games-way.com/Subscribers/LoginURL?msisdn={resultMsisdn}, For Terms & Conditions, https://games-way.com/Home/Terms",
+                        //    ExpPinDate = DateTime.Now
+                        //};
+                            await Task.Delay(15000);
+                            //await PushContentAsync(decryptedmsisdn, msgObj, pushPINObj.txnid);
                             await Login(resultMsisdn);
                             TempData.Remove("PushPINObj");
                             TempData.Remove("OtpBtn");
-                            return RedirectToAction("GetGamesList", "Home");
+                            TempData["CanAccessCongratulationsFlag"] = true;
+                            return RedirectToAction("Congratulations", "Subscribers");
                         }
                     }
                     else if (responseObject.message == "ALREADY SUB")
@@ -258,8 +297,8 @@ namespace GamesWay.Controllers
                         TempData.Remove("PINOBJ");
                         TempData.Remove("MSISDN");
                         return RedirectToAction("GetGamesList", "Home");
-                    }
-                    else
+                        }
+                        else
                     {
                         var resourceManager = new ResourceManager("GamesWay.Resources.Controllers.SubscribersController", typeof(SubscribersController).Assembly);
                         string errorMessage = resourceManager.GetString("INVALIDPIN");
@@ -293,7 +332,7 @@ namespace GamesWay.Controllers
                 .Include(s => s.Transactions)
                 .FirstOrDefaultAsync(x => x.Msisdn == msisdn);
 
-            if (existingSubscriber != null)
+            if (existingSubscriber != null && txnid == "")
             {
                 var latestTransactions = existingSubscriber.Transactions.OrderByDescending(t => t.DateOfSubscription).FirstOrDefault();
 
@@ -354,13 +393,13 @@ namespace GamesWay.Controllers
         [Consumes("application/xml", "text/xml")]
         public async Task<IActionResult> CallBackUrlAsync([FromBody] Call_url Call_url)
         {
-            //var remoteIpAddress = HttpContext.Connection.RemoteIpAddress.MapToIPv4().ToString();
-            //var allowedIPs = new List<string> { "20.46.156.86", "40.119.172.142" };
+            var remoteIpAddress = HttpContext.Connection.RemoteIpAddress.MapToIPv4().ToString();
+            var allowedIPs = new List<string> { "20.46.156.86", "40.119.172.142" };
 
-            //if (!allowedIPs.Contains(remoteIpAddress))
-            //{
-            //    return StatusCode(StatusCodes.Status403Forbidden);
-            //}
+            if (!allowedIPs.Contains(remoteIpAddress))
+            {
+                return StatusCode(StatusCodes.Status403Forbidden);
+            }
 
             string authorizationHeader = HttpContext.Request.Headers["Authorization"];
             
@@ -380,26 +419,58 @@ namespace GamesWay.Controllers
                     // Check if the provided username and password match the expected values
                     if (username == ExpectedUsername && password == ExpectedPassword)
                     {
-                        object requestBody = new
+                        object requestBody;
+                        if (Call_url.TransactionType == "UNSUB")
                         {
-                            Msisdn = Call_url.msisdn,
-                            PackageId = Call_url.package_id,
-                            TransactionType = Call_url.TransactionType,
-                            Amount = Call_url.Amount,
-                            Channel = Call_url.channel,
-                            TransactionId = Call_url.transaction_id1,
-                            TransactionId2 = Call_url.transaction_id2
-                        };
-                        var result = await AddSubscriberAsync(requestBody);
-                        if (result is OkObjectResult)
-                        {
-                            return Ok("Success");
+                             requestBody = new
+                            {
+                                Msisdn = Call_url.msisdn,
+                                PackageId = Call_url.package_id,
+                                TransactionType = Call_url.TransactionType,
+                                Amount = Call_url.Amount,
+                                Channel = Call_url.channel,
+                                TransactionId = Call_url.transaction_id,
+                                TransactionId2 = Call_url.transaction_id2
+                            };
                         }
                         else
                         {
-                            return BadRequest("Duplicated Transaction Id");
+                            requestBody = new
+                            {
+                                Msisdn = Call_url.msisdn,
+                                PackageId = Call_url.package_id,
+                                TransactionType = Call_url.TransactionType,
+                                Amount = Call_url.Amount,
+                                Channel = Call_url.channel,
+                                TransactionId = Call_url.transaction_id1,
+                                TransactionId2 = Call_url.transaction_id2
+                            };
                         }
+
+                        var result = await AddSubscriberAsync(requestBody);
+                        if (result is OkObjectResult)
+                        {
+                            if (Call_url.TransactionType == "SUB")
+                            {
+                                string prefixToRemove = "971";
+                                if (Call_url.msisdn.StartsWith(prefixToRemove))
+                                {
+                                    string resultMsisdn = Call_url.msisdn.Substring(prefixToRemove.Length);
+                                    GenPinModel msgObj = new GenPinModel
+                                    {
+                                        PinMSG = $"Dear Customer, Welcome to GamesWay service. You can access your account and enjoy the service by visiting: https://games-way.com/Subscribers/LoginURL?msisdn={resultMsisdn}, For Terms & Conditions, https://games-way.com/Home/Terms",
+                                        ExpPinDate = DateTime.Now
+                                    };
+                                    await PushContentAsync(Call_url.msisdn, msgObj, Call_url.transaction_id1);
+                                }
+                            }
+                            return Ok("Success");
+                        }
+                    else
+                    {
+                        return BadRequest("Duplicated Transaction Id");
                     }
+                }
                 }
             }
 
@@ -450,14 +521,7 @@ namespace GamesWay.Controllers
                 // Check if the response message is "SUCCESS"
                 if (responseObject.message == "UNSUBSCRIPTION SUCCESSFUL")
                 {
-                    //var existingSession = await _context.LogSessions
-                    //    .Where(x => x.Msisdn == msisdn)
-                    //    .OrderByDescending(x => x.LoginTime)
-                    //    .FirstOrDefaultAsync();
                     HttpContext.Session.Clear();
-                    //existingSession.IsActive = false;
-                    //_context.Entry(existingSession).State = EntityState.Modified;
-                    //await _context.SaveChangesAsync();
                     return RedirectToAction("", "Home");
                 }
             }
@@ -622,7 +686,6 @@ namespace GamesWay.Controllers
         {
 
             ViewBag.SubscribersCount = await _context.Subscribers.CountAsync();
-            ViewBag.IsSubscribedCount = await _context.Subscribers.CountAsync(x => x.IsSubscribed == true);
             return _context.Subscribers != null ?
                         View(await _context.Subscribers.ToListAsync()) :
                         Problem("Entity set 'ApplicationDbContext.Subscribers'  is null.");
@@ -643,10 +706,29 @@ namespace GamesWay.Controllers
         [HttpGet("PINOTP")]
         public IActionResult PINOTP()
         {
-            return View();
+            if (TempData.ContainsKey("CanAccessPageFlag") && (bool)TempData["CanAccessPageFlag"])
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("","Home");
+            }
         }
 
-		private bool MsisdnExists(string Msisdn)
+        [HttpGet("Congratulations")]
+        public async Task<IActionResult> Congratulations()
+        {
+            if (TempData.ContainsKey("CanAccessCongratulationsFlag") && (bool)TempData["CanAccessCongratulationsFlag"])
+            {
+                 return View();
+            }
+            else
+            {
+                return RedirectToAction("", "Home");
+            }
+        }
+        private bool MsisdnExists(string Msisdn)
         {
             return _context.Subscribers?.Any(e => e.Msisdn == Msisdn) ?? false;
         }

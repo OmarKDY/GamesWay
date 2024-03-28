@@ -126,6 +126,9 @@
   <data name="ClickSub2" xml:space="preserve">
     <value>عند النقر على "اشتراك"، سنقوم بتنشيط اشتراكك</value>
   </data>
+  <data name="CongratulationsText" xml:space="preserve">
+    <value>تهانينا, تم الأشتراك بنجاح سيتم تحويلك للألعاب تلقائيا او اضغط علي الرابط بالأسفل.</value>
+  </data>
   <data name="EnterNumRecOTP" xml:space="preserve">
     <value>أدخل رقم هاتفك المحمول من شركة اتصالات لتلقي رمز المصادقة</value>
   </data>
@@ -143,6 +146,9 @@
   </data>
   <data name="InvMsisdn" xml:space="preserve">
     <value>رقم هاتف خاطيء</value>
+  </data>
+  <data name="LetsPlay" xml:space="preserve">
+    <value>هيا نلعب</value>
   </data>
   <data name="LoginBtn" xml:space="preserve">
     <value>تسجيل الدخول</value>

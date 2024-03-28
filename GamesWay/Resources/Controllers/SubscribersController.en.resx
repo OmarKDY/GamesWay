@@ -126,6 +126,9 @@
   <data name="ClickSub2" xml:space="preserve">
     <value>When clicking "Subscribe" we will activate your Subscription</value>
   </data>
+  <data name="CongratulationsText" xml:space="preserve">
+    <value>Congratulations, Subscription Successfully We Will Redirect You To The Games Or Click On The Link Below.</value>
+  </data>
   <data name="EnterNumRecOTP" xml:space="preserve">
     <value>Enter your Etisalat Mobile Number to receive OTP</value>
   </data>
@@ -143,6 +146,9 @@
   </data>
   <data name="InvMsisdn" xml:space="preserve">
     <value>Invalid Msisdn</value>
+  </data>
+  <data name="LetsPlay" xml:space="preserve">
+    <value>Let's Play</value>
   </data>
   <data name="LoginBtn" xml:space="preserve">
     <value>Log In</value>

@@ -47,10 +47,10 @@ namespace GamesWay.Controllers
                     //string sessionId = HttpContext.Session.GetString("SessionId");
                     string endSubscriptionDate = HttpContext.Session.GetString("EndOfSubscription");
                     string msisdn = HttpContext.Session.GetString("Msisdn");
-                    var existingSession = await _context.LogSessions
-                        .Where(x => x.Msisdn == msisdn)
-                        .OrderByDescending(x => x.LoginTime)
-                        .FirstOrDefaultAsync();
+                    //var existingSession = await _context.LogSessions
+                    //    .Where(x => x.Msisdn == msisdn)
+                    //    .OrderByDescending(x => x.LoginTime)
+                    //    .FirstOrDefaultAsync();
 
                     var gamesList = new List<GamesVM>();
 					var gamesPath = Path.Combine("wwwroot", "Games", categoryName);
@@ -85,7 +85,7 @@ namespace GamesWay.Controllers
 
                         if (msisdn != null)
                         {
-                            if (isSubscribed == "true" || endOfSubscriptionDate > DateTime.Now || existingSession.IsActive == true)
+                            if (isSubscribed == "true" || endOfSubscriptionDate > DateTime.Now /*|| existingSession.IsActive == true*/)
                             {
                                 gamePath = $"/{item.Substring(item.IndexOf("Games")).Replace("\\", "/")}/game/index.html";
                                 encryptedgamePath = await EncryptionHelpers.EncryptFieldAsync(gamePath, gamePathencryptionKey);

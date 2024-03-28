@@ -1,0 +1,78 @@
+﻿@page
+@using GamesWay.Controllers;
+@using Microsoft.AspNetCore.Mvc.Localization;
+@using Microsoft.Extensions.Localization;
+@inject IStringLocalizer<SubscribersController> localizer;
+@{
+    Layout = "~/Views/Shared/_IdentityLayout.cshtml";
+}
+
+
+<style>
+    .parentClass {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        width: auto;
+    }
+
+    .childClass {
+        padding: 20px;
+        background-color: #f4f4f4;
+        border: 5px solid #6610f2;
+        border-radius: 10px;
+        transition: transform 0.8s ease-in-out;
+        box-shadow: 0 0 0 white;
+        animation: shine 1.5s infinite;
+        max-width: 80%; /* Adjust the width as needed */
+    }
+
+        .childClass:hover {
+            transform: scale(1.05);
+            animation: none;
+            box-shadow: 0 0 20px white;
+        }
+
+    @@keyframes shine {
+        0% {
+            box-shadow: 0 0 0 white;
+        }
+
+        50% {
+            box-shadow: 0 0 20px white;
+        }
+
+        100% {
+            box-shadow: 0 0 0 white;
+        }
+    }
+</style>
+
+
+<div class="parentClass">
+    <div class="col-md-8 col-lg-6 childClass">
+        <h3 style="font-weight: bolder;">@localizer["PortalName"]</h3>
+
+        <p style="font-size: xx-large;">
+            @localizer["CongratulationsText"]
+        </p>
+        <a href="https://games-way.com/Home/GetGamesList?pageNo=1&categoryName=Sport%20Games">
+            @localizer["LetsPlay"]
+        </a>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+<script>
+    // Wait for the page to load
+    window.onload = function () {
+        // Wait for 3 seconds before making the AJAX request
+        setTimeout(function () {
+            // Redirect to the GetGamesList endpoint
+            window.location.href = 'https://games-way.com/Home/GetGamesList';
+        }, 3000); // 3 seconds delay
+    };
+</script>
