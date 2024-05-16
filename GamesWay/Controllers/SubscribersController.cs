@@ -15,7 +15,7 @@ namespace GamesWay.Controllers
 {
     [Route("/[controller]")]
     [ApiController]
-    public class SubscribersController : Controller 
+    public class SubscribersController : Controller
     {
         //Full Credintials================================
         //SUBSCRIPTION CREDINTIALS
@@ -682,14 +682,14 @@ namespace GamesWay.Controllers
         }
 
         // GET: Subscribers
-        public async Task<IActionResult> Index()
-        {
+        //public async Task<IActionResult> Index()
+        //{
 
-            ViewBag.SubscribersCount = await _context.Subscribers.CountAsync();
-            return _context.Subscribers != null ?
-                        View(await _context.Subscribers.ToListAsync()) :
-                        Problem("Entity set 'ApplicationDbContext.Subscribers'  is null.");
-        }
+        //    ViewBag.SubscribersCount = await _context.Subscribers.CountAsync();
+        //    return _context.Subscribers != null ?
+        //                View(await _context.Subscribers.ToListAsync()) :
+        //                Problem("Entity set 'ApplicationDbContext.Subscribers'  is null.");
+        //}
 
         [HttpGet("Subscribe")]
         public IActionResult Subscribe()

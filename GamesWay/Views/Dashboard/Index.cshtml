@@ -58,9 +58,10 @@
         font-weight: bold;
     }
 </style>
-@{
+@*@{
     List<dynamic> topRenewableSubscribers = ViewBag.TopRenewableSubscribers;
-}
+}*@
+
 <div class="row justify-content-center">
     <div class="col-md-6 text-center mb-4">
         <form asp-action="Index" method="get">
@@ -107,7 +108,7 @@
         </div>
     </div>
 </div>
-<div class="container">
+@*<div class="container">
     <h2 class="text-center">Top Renewable Subscribers</h2>
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -130,9 +131,18 @@
             </table>
         </div>
     </div>
-</div>
+</div>*@
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
 <script>
+    //window.onload = function () {
+    //    openPopup();
+    //};
+    //function openPopup() {
+    //    var popup = window.open('/Dashboard/Login', 'Popup', 'width=400,height=400');
+    //    if (!popup) {
+    //        alert('Please allow popups for this website');
+    //    }
+    //}
     $(document).ready(function () {
         $('.counter-value').each(function () {
             $(this).prop('Counter', 0).animate({
